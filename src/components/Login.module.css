@@ -1,0 +1,70 @@
+body {
+  background: var(--cool-gray-10, #ffffff);
+}
+/* @font-face {
+  font-family: sans;
+  src: url(/public/fonts/FaberSansPro75reduced.ttf);
+}
+@font-face {
+  font-family: roboto;
+  src: url(/public/fonts/Roboto-Light.ttf);
+} */
+.loginContainer {
+  margin: 0 auto;
+  position: absolute;
+  /*top: 30%;*/
+  left: 15%;
+  transform: translate(-50%, -50%);
+}
+.cheokchu1 {
+  font-feature-settings: "clig" off, "liga" off;
+
+  font-family: sans;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 10px;
+}
+.cheokchu2 {
+  color: var(--primary-90, #001d6c);
+  font-family: pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+
+  margin-top: 1%;
+  margin-left: 5px;
+}
+.signInBtn {
+  position: relative;
+  width: 350px;
+  /*top: 150px;*/
+  background-color: #f5f5f5;
+  border: 1px solid #e7e7e7;
+  text-align: center;
+}
+.kakaoBtn {
+}
+.foot {
+  top: 350px;
+  right: 290px;
+  position: relative;
+}
+.helloworld {
+  position: relative;
+  left: 400px;
+  bottom: 630px;
+  width: 1078px;
+  height: 1910px;
+
+  flex-shrink: 0;
+  z-index: -1;
+}
+
+.box {
+  background-color: #f5f5f5;
+  border: 1px solid #e7e7e7;
+  text-align: center;
+  width: 170px;
+}
