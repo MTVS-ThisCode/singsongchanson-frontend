@@ -1,10 +1,16 @@
-import { Vector3, SceneLoader, KeyboardEventTypes, Animation, AnimationPropertiesOverride } from "@babel/core";
+import { Vector3, SceneLoader, KeyboardEventTypes, Animation, AnimationPropertiesOverride } from "@babylonjs/core";
+
+import "@babylonjs/core/Loading/loadingScreen";
+import "@babylonjs/loaders/glTF";
+import "@babylonjs/loaders/OBJ";
+import "@babylonjs/core/Materials/standardMaterial";
+import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
 
 class Avatar {
-  constructor(url, name, scene, camera, position) {
+  constructor(url, name, scale, scene, camera, position) {
     SceneLoader.ImportMesh("", url, name, scene, function (newMeshes, particleSystems, skeletons, animationGroups) {
       const model = newMeshes[0];
-      model.scaling.scaleInPlace(1);
+      model.scaling.scaleInPlace(scale);
 
       model.position.x = position.x;
       model.position.y = position.y;
