@@ -102,18 +102,14 @@ class SceneInitializer {
   async onReady(models, musicList, avatarModel, user) {
     const guiManager = new GUI3DManager(this.scene);
     const avatar = new Avatar();
+    console.log(user);
     const userAvatarModel = avatarModel["female"];
-    console.log(userAvatarModel);
-    const newAvatar = await avatar.create(userAvatarModel.url, userAvatarModel.name, userAvatarModel.scale, this.scene, this.camera1, userAvatarModel.position);
-    const nicknamePlane = avatar.addNicknamePlane(newAvatar, this.scene, "이효진");
-    Avatar.move(newAvatar, this.scene, nicknamePlane);
+    if (userAvatarModel) {
+      const newAvatar = await avatar.create(userAvatarModel.url, userAvatarModel.name, userAvatarModel.scale, this.scene, this.camera1, userAvatarModel.position);
+      const nicknamePlane = avatar.addNicknamePlane(newAvatar, this.scene, "이효진");
+      Avatar.move(newAvatar, this.scene, nicknamePlane);
+    }
     if (user) {
-      const userAvatarModel = avatarModel[user.gender];
-      if (userAvatarModel) {
-        const newAvatar = await avatar.create(userAvatarModel.url, userAvatarModel.name, userAvatarModel.scale, this.scene, this.camera1, userAvatarModel.position);
-        const nicknamePlane = avatar.addNicknamePlane(newAvatar, this.scene, "이효진");
-        Avatar.move(newAvatar, this.scene, nicknamePlane);
-      }
     }
     models.forEach(async (model) => {
       if (model.type === "avatar") {
