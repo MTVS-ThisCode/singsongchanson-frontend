@@ -73,7 +73,7 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
         window.removeEventListener("resize", resize);
       }
     };
-  }, [sceneOptions, onRender, avatar, models, musicList]);
+  }, [sceneOptions, onRender, avatar, models, musicList, user]);
 
   // set up basic engine and scene
   useEffect(() => {
