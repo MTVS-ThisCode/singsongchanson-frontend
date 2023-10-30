@@ -14,8 +14,8 @@ class MusicButton {
     playText.color = "Red";
     playText.fontSize = 48;
     musicPlayButton.content = playText;
-    musicPlayButton.position.y = 1;
-    musicPlayButton.position.x = -2;
+    musicPlayButton.position.y = listButtonPosition.y + 1;
+    musicPlayButton.position.x = listButtonPosition.x - 2;
     musicPlayButton.node.rotation.y = Math.PI;
 
     musicPlayButton.onPointerClickObservable.add(() => {
@@ -35,8 +35,8 @@ class MusicButton {
     stopText.color = "Red";
     stopText.fontSize = 48;
     stopMusicButton.content = stopText;
-    stopMusicButton.position.y = 1;
-    stopMusicButton.position.x = -3;
+    stopMusicButton.position.y = listButtonPosition.y + 1;
+    stopMusicButton.position.x = listButtonPosition.x - 3;
     stopMusicButton.node.rotation.y = Math.PI;
 
     setInterval(() => {

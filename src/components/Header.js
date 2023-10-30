@@ -18,9 +18,9 @@ function Header({ toggled, setToggled, user }) {
           <img src="/img/logo.png" alt="logo" className="logo" />
         </Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="">
           <Form className="d-flex">
-            <InputGroup className="mb-3 rounded-pill">
+            <InputGroup className="mb-10 rounded-pill" size="lg" style={{ width: "700px" }}>
               <Form.Control type="search" placeholder="Search" aria-label="Search" />
               <InputGroup.Text>
                 <BsSearch />

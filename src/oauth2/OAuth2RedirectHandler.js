@@ -20,7 +20,7 @@ function OAuth2RedirectHandler() {
     if (token) {
       localStorage.setItem(ACCESS_TOKEN, token);
       localStorage.setItem(REFRESH_TOKEN, null);
-      navigate("/userInfo");
+      navigate("/");
     } else {
       navigate("/");
     }

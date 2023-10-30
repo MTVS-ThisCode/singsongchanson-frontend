@@ -1,0 +1,22 @@
+{
+  "male": {
+    "name": "HVGirl.glb",
+    "url": "https://assets.babylonjs.com/meshes/",
+    "scale": 0.3,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "female": {
+    "name": "GIRL_CR.fbx",
+    "url": "/assets/",
+    "scale": 0.001,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

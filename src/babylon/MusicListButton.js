@@ -16,12 +16,13 @@ class MusicListButton {
     playListText.color = "Red";
     playListText.fontSize = 48;
     playListButton.content = playListText;
-    playListButton.position.y = furniturePosition.y + 2;
+    playListButton.position.y = furniturePosition.y + 5;
     playListButton.position.x = furniturePosition.x;
     playListButton.node.rotation.y = Math.PI;
 
     let listEvent = true;
     const musicListPanel = new PlanePanel();
+    this.musicListPanel = musicListPanel;
     const anchor = new TransformNode("");
 
     guiManager.addControl(musicListPanel);
@@ -35,7 +36,10 @@ class MusicListButton {
     musicListPanel.position.y = playListButton.position.y + 0.3 + Math.ceil(size / musicListPanel.columns);
     musicList.forEach((music) => {
       const musicButton = new MusicButton(music.url, guiManager, scene, this.playListButton.position);
-      musicButton.isVisible = false;
+      musicListPanel.addControl(musicButton.musicPlayButton);
+      musicListPanel.addControl(musicButton.stopMusicButton);
+      musicButton.musicPlayButton.isVisible = false;
+      musicButton.stopMusicButton.isVisible = false;
     });
     musicListPanel.blockLayout = false;
 

@@ -18,7 +18,7 @@ class Furniture {
     return model;
   }
 
-  static dragOn(furnitureModel, ground, musicListButton) {
+  static dragOn(furnitureModel, ground, musicListButton, musicListPanel) {
     const dragBehavior = new PointerDragBehavior();
     dragBehavior.moveAttached = false;
     furnitureModel.addBehavior(dragBehavior);
@@ -49,17 +49,26 @@ class Furniture {
           if (musicListButton) {
             musicListButton.position.x += event.delta.x;
           }
+          if (musicListPanel) {
+            musicListPanel.position.x += event.delta.x;
+          }
         } else if (moveMode === 2) {
           if (furnitureModel.position.y + event.delta.y > ground.position.y) {
             furnitureModel.position.y += event.delta.y;
             if (musicListButton) {
               musicListButton.position.y += event.delta.y;
             }
+            if (musicListPanel) {
+              musicListPanel.position.y += event.delta.y;
+            }
           }
         } else if (moveMode === 3) {
           furnitureModel.position.z += event.delta.z;
           if (musicListButton) {
             musicListButton.position.z += event.delta.z;
+          }
+          if (musicListPanel) {
+            musicListPanel.position.z += event.delta.z;
           }
         }
       } else if (clickBtn === "right") {

@@ -4,22 +4,21 @@ import Col from "react-bootstrap/Col";
 import { Row } from "react-bootstrap";
 
 import LoginBox from "../components/LoginBox";
+import UserBox from "../components/UserBox";
 import CreateAlbum from "../components/CreateAlbum";
 
-function Composition() {
+function Composition({ authenticated, user, logout }) {
   return (
     <>
       <Container style={{ marginTop: "20px" }}>
         <h1>
           <img src="/img/icon-music.png" alt="icon" style={{ width: "40px", height: "40px" }} /> <b>COMPOSITION</b>
         </h1>
-        <Row style={{ marginTop: "30px" }}>
-          <Col xs={8}>
+        <Row>
+          <div className="col-8">
             <CompositionForm />
-          </Col>
-          <Col xs={2}>
-            <LoginBox />
-          </Col>
+          </div>
+          <div className="col-2">{authenticated ? <UserBox user={user} logout={logout}></UserBox> : <LoginBox />}</div>
         </Row>
       </Container>
     </>
