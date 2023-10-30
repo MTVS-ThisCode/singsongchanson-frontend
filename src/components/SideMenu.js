@@ -46,7 +46,7 @@ function SideMenu({ toggled, setToggled }) {
             <MenuItem icon={<Image src="/img/composition.png" style={{ width: "30px", height: "30px" }} />} component={<Link to="/composition" />}>
               AI 작곡하기
             </MenuItem>
-            <MenuItem icon={<Image src="/img/composition.png" style={{ width: "30px", height: "30px" }} />} component={<Link to="/music" />}>
+            <MenuItem icon={<Image src="/img/composition.png" style={{ width: "30px", height: "30px" }} />} component={<Link to="/music/2" />}>
               마이 뮤직
             </MenuItem>
           </Menu>

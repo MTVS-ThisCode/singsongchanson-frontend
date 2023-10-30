@@ -51,7 +51,7 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
     await sceneInitializer.setEngine(document);
     await sceneInitializer.create(sceneOptions, canvas);
     await sceneInitializer.onReady(models, musicList, avatar, user);
-    setEngine(sceneInitializer.engine);
+    setEngine(sceneInitializer.scene.getEngine());
 
     sceneInitializer.engine.runRenderLoop(() => {
       if (typeof onRender === "function") onRender(sceneInitializer.scene);
@@ -89,8 +89,8 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
       <div style={{ position: "relative" }}>
         <canvas ref={reactCanvas} {...rest} style={{ width: "100%", height: "500px" }} allow="fullscreen"></canvas>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, right: 0, pointerEvents: "none" }}>
-          <Button variant="dark" size="lg" onClick={fullscreen} style={{ position: "absolute", right: "24px", bottom: "24px", pointerEvents: "all" }}>
-            <BiFullscreen />
+          <Button variant="dark" size="lg" onClick={fullscreen} style={{ position: "absolute", right: "24px", bottom: "24px", paddingLeft: "5px", paddingRight: "5px", paddingTop: "0px", paddingBottom: "3px", pointerEvents: "all" }}>
+            <BiFullscreen style={{ width: "20px", height: "20px" }} />
           </Button>
         </div>
       </div>

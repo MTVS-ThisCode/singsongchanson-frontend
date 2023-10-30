@@ -6,12 +6,14 @@ import Main from "./pages/Main";
 import SingsongRoom from "./pages/SingsongRoom";
 import RoomList from "./pages/RoomList";
 import Composition from "./pages/Composition";
+import MusicList from "./pages/MusicList";
 
 import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
 
 import "bootstrap/dist/css/bootstrap.css";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import { getCurrentUser } from "./apis/auth";
+import MyMusic from "./pages/MyMusic";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -63,6 +65,10 @@ function App() {
             <Route path="room">
               <Route index element={<RoomList authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
               <Route path=":roomId" element={<SingsongRoom authenticated={authenticated} user={currentUser} />} />
+            </Route>
+            <Route path="music">
+              <Route index element={<MusicList authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
+              <Route path=":userId" element={<MyMusic authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
             </Route>
           </Route>
           <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />

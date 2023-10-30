@@ -16,7 +16,7 @@ class MusicListButton {
     playListText.color = "Red";
     playListText.fontSize = 48;
     playListButton.content = playListText;
-    playListButton.position.y = furniturePosition.y + 5;
+    playListButton.position.y = furniturePosition.y + 3;
     playListButton.position.x = furniturePosition.x;
     playListButton.node.rotation.y = Math.PI;
 

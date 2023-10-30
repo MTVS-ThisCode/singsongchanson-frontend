@@ -10,8 +10,8 @@
     }
   },
   "female": {
-    "name": "GIRL_CR.fbx",
-    "url": "/assets/",
+    "name": "HVGirl.glb",
+    "url": "https://assets.babylonjs.com/meshes/",
     "scale": 0.001,
     "position": {
       "x": 0,
