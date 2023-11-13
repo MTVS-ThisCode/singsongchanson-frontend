@@ -7,14 +7,16 @@ import style from "./Composition.module.css";
 
 import { useState } from "react";
 
-function CompositionForm() {
+import { postSongprompt } from "../apis/song";
+
+function CompositionForm({ setPost, setResults }) {
   const [file, setFile] = useState(null);
   const [key, setKey] = useState(null);
   const [speed, setSpeed] = useState(null);
   const [length, setLength] = useState(null);
+  const [prompt, setPrompt] = useState(null);
 
   const handleKeyChange = (e) => {
-    console.log(e.target.value);
     setKey(e.target.value);
   };
   const handleSpeedChange = (e) => {
@@ -24,9 +26,31 @@ function CompositionForm() {
     setLength(e.target.value);
   };
 
-  function submitHandler() {
-    console.log({ key, speed, length });
-  }
+  const handlePromptChange = (e) => {
+    setPrompt(e.target.value);
+  };
+
+  const submitHandler = async () => {
+    setPost(true);
+    const formData = new FormData();
+
+    formData.append("keyword", prompt);
+
+    const data = Object.fromEntries(formData);
+    console.log("data", data);
+    await postSongprompt(data).then((result) => {
+      console.log(result.data);
+      console.log(data);
+      setResults(result);
+      // if (result.status === 200) {
+      //   const data = result.data.data;
+      //   console.log(data);
+      //   setResults(data);
+      // } else {
+      //   setResults(result);
+      // }
+    });
+  };
 
   return (
     <Row className="xs-8">
@@ -66,7 +90,7 @@ function CompositionForm() {
         </Form.Select>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formContent" style={{ marginTop: "30px" }}>
+      <Form.Group className="mb-3" controlId="formContent" style={{ marginTop: "30px" }} onChange={handlePromptChange}>
         <Form.Label>내용 : </Form.Label>
         <Form.Control as="textarea" rows={5} />
       </Form.Group>

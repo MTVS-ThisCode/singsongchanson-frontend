@@ -1,0 +1,6 @@
+.modelListContainer {
+  border: 3px solid black;
+  width: 450px;
+  height: 470px;
+  overflow: scroll;
+}

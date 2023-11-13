@@ -5,21 +5,46 @@ import "@babylonjs/loaders/glTF";
 import "@babylonjs/loaders/OBJ";
 import "@babylonjs/core/Materials/standardMaterial";
 import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
+import { Vector3 } from "babylonjs";
+import MusicListButton from "./MusicListButton";
+import MusicListPage from "./MusicListPage";
 
 class Furniture {
-  async create(url, name, scale, scene, position) {
+  async create(url, name, scale, scene, position, rotation, isEdit) {
     const result = await SceneLoader.ImportMeshAsync("", url, name, scene);
+
+    result.meshes.forEach((mesh) => {
+      // mesh.isPickable = true;
+      mesh.checkCollisions = true;
+      mesh.metadata = { name, url, scale };
+      //mesh.freezeWorldMatrix();
+      //mesh.doNotSyncBoundingInfo = true;
+    });
     const model = result.meshes[0];
+    model.enablePointerMoveEvents = true;
+    model.isPickable = true;
     model.scaling.scaleInPlace(scale);
 
     model.position.x = position.x;
     model.position.y = position.y;
     model.position.z = position.z;
+
+    if (rotation) {
+      model.rotationQuaternion.x = rotation.x;
+      model.rotationQuaternion.y = rotation.y;
+      model.rotationQuaternion.z = rotation.z;
+    }
+    model.metadata = { name, url, scale };
+
     return model;
   }
 
-  static dragOn(furnitureModel, ground, musicListButton, musicListPanel) {
+  static dragOn(furnitureModel, musicListButton, musicListPanel) {
+    const models = JSON.parse(localStorage.getItem("room"));
+    const updateModel = models.filter((model) => model.name === furnitureModel.metadata.name)[0];
+    const index = models.indexOf(updateModel);
     const dragBehavior = new PointerDragBehavior();
+
     dragBehavior.moveAttached = false;
     furnitureModel.addBehavior(dragBehavior);
     let moveMode = 0;
@@ -45,15 +70,17 @@ class Furniture {
       }
       if (clickBtn === "left") {
         if (moveMode === 1) {
-          furnitureModel.position.x += event.delta.x;
-          if (musicListButton) {
-            musicListButton.position.x += event.delta.x;
-          }
-          if (musicListPanel) {
-            musicListPanel.position.x += event.delta.x;
+          if (Math.abs(furnitureModel.position.x + event.delta.x) < 380) {
+            furnitureModel.position.x += event.delta.x;
+            if (musicListButton) {
+              musicListButton.position.x += event.delta.x;
+            }
+            if (musicListPanel) {
+              musicListPanel.position.x += event.delta.x;
+            }
           }
         } else if (moveMode === 2) {
-          if (furnitureModel.position.y + event.delta.y > ground.position.y) {
+          if (furnitureModel.position.y + event.delta.y > 0) {
             furnitureModel.position.y += event.delta.y;
             if (musicListButton) {
               musicListButton.position.y += event.delta.y;
@@ -63,22 +90,74 @@ class Furniture {
             }
           }
         } else if (moveMode === 3) {
-          furnitureModel.position.z += event.delta.z;
-          if (musicListButton) {
-            musicListButton.position.z += event.delta.z;
-          }
-          if (musicListPanel) {
-            musicListPanel.position.z += event.delta.z;
+          if (furnitureModel.position.z + event.delta.z > -260 && furnitureModel.position.z + event.delta.z < 250) {
+            furnitureModel.position.z += event.delta.z;
+            if (musicListButton) {
+              musicListButton.position.z += event.delta.z;
+            }
+            if (musicListPanel) {
+              musicListPanel.position.z += event.delta.z;
+            }
           }
         }
       } else if (clickBtn === "right") {
         if (event.delta.x > 0) {
-          furnitureModel.addRotation(0, 0.1, 0);
-        } else if (event.delta.x < 0) {
           furnitureModel.addRotation(0, -0.1, 0);
+        } else if (event.delta.x < 0) {
+          furnitureModel.addRotation(0, 0.1, 0);
         }
       }
+
+      if (index !== -1) {
+        const furniture = {};
+        furniture.position = { x: furnitureModel.position.x, y: furnitureModel.position.y, z: furnitureModel.position.z };
+        furniture.name = furnitureModel.metadata.name;
+        furniture.url = furnitureModel.metadata.url;
+        furniture.scale = furnitureModel.metadata.scale;
+        furniture.rotation = { x: furnitureModel.rotationQuaternion.x, y: furnitureModel.rotationQuaternion.y, z: furnitureModel.rotationQuaternion.z };
+        models[index] = furniture;
+        console.log(models[index]);
+        localStorage.setItem("room", JSON.stringify(models));
+      }
     });
+  }
+
+  static click(furnitureModel, scene, guiManager, musicList) {
+    let listEvent = true;
+    scene.onPointerDown = function (evt, pickResult) {
+      // We try to pick an object
+      if (pickResult.hit) {
+        if (pickResult.pickedMesh.metadata) {
+          const meshName = pickResult.pickedMesh.metadata.name;
+          console.log(meshName);
+          switch (meshName) {
+            case "keyboard.glb":
+              // const musicListButton = new MusicListButton(guiManager, musicList, this.scene, furnitureModel.position);
+              // console.log(listEvent);
+              // if (listEvent) {
+              //   musicListButton.musicListPanel.children.forEach((btn) => {
+              //     btn.isVisible = true;
+              //   });
+              //   listEvent = false;
+              // } else {
+              //   musicListButton.musicListPanel.children.forEach((btn) => {
+              //     btn.isVisible = false;
+              //   });
+              //   listEvent = true;
+              // }
+              new MusicListPage(guiManager, musicList, scene, pickResult.pickedMesh.position);
+              break;
+            case "guitar.glb":
+              new MusicListPage(guiManager, musicList, scene, pickResult.pickedMesh.position);
+              break;
+            case "pCube1_cor_0":
+              break;
+            default:
+              break;
+          }
+        }
+      }
+    };
   }
 }
 

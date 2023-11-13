@@ -1,11 +1,33 @@
 [
   {
     "type": "furniture",
-    "name": "Chair.glb",
+    "name": "speaker.glb",
     "url": "/assets/",
-    "scale": 5,
+    "scale": 3,
     "position": {
-      "x": 3,
+      "x": 30,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "desk.glb",
+    "url": "/assets/",
+    "scale": 150,
+    "position": {
+      "x": 80,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "keyboard.glb",
+    "url": "/assets/",
+    "scale": 200,
+    "position": {
+      "x": 70,
       "y": 0,
       "z": 0
     }
@@ -14,9 +36,9 @@
     "type": "furniture",
     "name": "guitar.glb",
     "url": "/assets/",
-    "scale": 0.005,
+    "scale": 0.3,
     "position": {
-      "x": 7,
+      "x": 70,
       "y": 0,
       "z": 0
     }

@@ -1,8 +1,8 @@
 {
   "male": {
-    "name": "HVGirl.glb",
-    "url": "https://assets.babylonjs.com/meshes/",
-    "scale": 0.3,
+    "name": "Reaction.fbx",
+    "url": "/assets/",
+    "scale": 0.03,
     "position": {
       "x": 0,
       "y": 0,
@@ -10,9 +10,9 @@
     }
   },
   "female": {
-    "name": "HVGirl.glb",
-    "url": "https://assets.babylonjs.com/meshes/",
-    "scale": 0.25,
+    "name": "Reaction.fbx",
+    "url": "/assets/",
+    "scale": 0.03,
     "position": {
       "x": 0,
       "y": 0,

@@ -11,12 +11,19 @@ import UserBox from "../components/UserBox";
 
 import roomJSON from "../data/room.json";
 import commentStyle from "../components/Comment.module.css";
+import { getRoomList } from "../apis/room";
 
 function RoomList({ authenticated, user, logout }) {
   const [roomList, setRoomList] = useState([]);
 
   useEffect(() => {
-    setRoomList([...roomJSON]);
+    getRoomList().then((result) => {
+      if (result.status === 200) {
+        const data = result.data.data;
+        console.log(data);
+        setRoomList([...data]);
+      }
+    });
   }, []);
 
   return (
@@ -26,11 +33,11 @@ function RoomList({ authenticated, user, logout }) {
         <Row>
           <div className="col-8">
             {roomList.map((room) => (
-              <Card style={{ width: "18rem" }}>
+              <Card style={{ width: "18rem" }} key={roomList.indexOf(room)}>
                 <Card.Img variant="top" src={room.thumbnail} />
                 <Card.Body>
-                  <Image className={commentStyle.profileImage} src={room.user.profileImg} alt="profileImage"></Image>
-                  <Card.Title>{room.user.nickname}님의 싱송룸</Card.Title>
+                  <Image className={commentStyle.profileImage} src={room.userProfileImg} alt="profileImage"></Image>
+                  <Card.Title>{room.userName}님의 싱송룸</Card.Title>
                   <Link to={`/room/${room.roomId}`} style={{ textDecoration: "none", color: "black" }}>
                     <Button variant="dark" size="lg">
                       싱송룸 방문

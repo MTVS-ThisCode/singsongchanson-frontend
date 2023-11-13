@@ -31,7 +31,7 @@ function CommentList({ user, commentList }) {
 
       <Stack gap={commentList.length} className={commentStyle.commentList}>
         {commentList.map((comment) => (
-          <Stack direction="horizontal" gap={3}>
+          <Stack direction="horizontal" gap={3} key={commentList.indexOf(comment)}>
             <Image className={commentStyle.profileImage} src={comment.user.profileImg} alt="profileImage"></Image>
             <h6>
               <b>@{comment.user.nickname}</b>

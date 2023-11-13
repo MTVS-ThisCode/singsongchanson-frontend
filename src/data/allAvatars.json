@@ -1,0 +1,24 @@
+[
+  {
+    "type": "furniture",
+    "name": "Chair.glb",
+    "url": "/assets/",
+    "scale": 5,
+    "position": {
+      "x": 3,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "guitar.glb",
+    "url": "/assets/",
+    "scale": 0.005,
+    "position": {
+      "x": 7,
+      "y": 0,
+      "z": 0
+    }
+  }
+]

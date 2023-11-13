@@ -1,16 +1,6 @@
 [
   {
-    "url": "/sounds/3rdPrototype.mp3",
-    "title": "3rdPrototype",
-    "description": "신나는 노래 NCS"
-  },
-  {
-    "url": "/sounds/3rdPrototype.mp3",
-    "title": "3rdPrototype",
-    "description": ""
-  },
-  {
-    "url": "/sounds/3rdPrototype.mp3",
+    "url": "https://singsongchanson.s3.amazonaws.com/sound/3945373a-da5c-4350-84f5-1185c88fc694.wav",
     "title": "3rdPrototype",
     "description": ""
   }

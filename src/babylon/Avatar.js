@@ -1,8 +1,8 @@
-import { Vector3, SceneLoader, KeyboardEventTypes, Animation, AnimationPropertiesOverride, MeshBuilder, DynamicTexture, StandardMaterial } from "@babylonjs/core";
+import { Vector3, SceneLoader, KeyboardEventTypes, MeshBuilder, DynamicTexture, StandardMaterial, AnimationPropertiesOverride, ActionManager, ExecuteCodeAction } from "@babylonjs/core";
 
 import "@babylonjs/core/Loading/loadingScreen";
-import "@babylonjs/loaders/glTF";
-import "@babylonjs/loaders/OBJ";
+// import "@babylonjs/loaders/glTF";
+// import "@babylonjs/loaders/OBJ";
 import "@babylonjs/core/Materials/standardMaterial";
 import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
 import { FBXLoader } from "babylonjs-fbx-loader";
@@ -20,49 +20,64 @@ class Avatar {
     model.position.y = position.y;
     model.position.z = position.z;
 
-    camera.target = model;
+    //camera.target = model;
 
-    //Animation.AllowMatricesInterpolation = true;
+    Animation.AllowMatricesInterpolation = true;
+
+    const skeleton = result.skeletons[0];
+    skeleton.animationPropertiesOverride = new AnimationPropertiesOverride();
+    skeleton.animationPropertiesOverride.enableBlending = true;
+    skeleton.animationPropertiesOverride.blendingSpeed = 0.05;
+    skeleton.animationPropertiesOverride.loopMode = 0;
     return model;
-    // const skeleton = skeletons[0];
-    // skeleton.animationPropertiesOverride = new AnimationPropertiesOverride();
-    // skeleton.animationPropertiesOverride.enableBlending = true;
-    // skeleton.animationPropertiesOverride.blendingSpeed = 0.05;
-    // skeleton.animationPropertiesOverride.loopMode = 0;
   }
 
   static move(avatarModel, scene, nicknamePlane) {
+    console.log(scene);
     const idleRange = scene.getAnimationGroupByName("Idle");
-    const walkRange = scene.getAnimationGroupByName("Walking");
+    const walkRange = scene.getAnimationGroupByName("AnimStack::mixamo.com");
+    //const idleRange = scene.animationGroups[0];
+    //const walkRange = scene.animationGroups[1];
 
     scene.onKeyboardObservable.add((kbInfo) => {
       switch (kbInfo.type) {
         case KeyboardEventTypes.KEYDOWN:
-          console.log("key : ", kbInfo.event.key);
           switch (kbInfo.event.key) {
-            case "a" || "A":
+            case "a" || "A" || "ㅁ":
               if (walkRange) walkRange.start(true, 1.0, walkRange.from, walkRange.to, false);
-              avatarModel.rotation = new Vector3(0, -(Math.PI / 2), 0);
-              avatarModel.position.x += 0.1;
-              nicknamePlane.position.x += 0.1;
+              avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI / 2, 0);
+              //avatarModel.rotate(Axis.Z, Math.PI / 2, Space.LOCAL);
+              if (avatarModel.position.x < 370) {
+                avatarModel.position.x += 10;
+                nicknamePlane.position.x += 10;
+              }
               break;
-            case "d" || "D":
+            case "d" || "D" || "ㅇ":
               if (walkRange) walkRange.start(true, 1.0, walkRange.from, walkRange.to, false);
-              avatarModel.rotation = new Vector3(0, Math.PI / 2, 0);
-              avatarModel.position.x -= 0.1;
-              nicknamePlane.position.x -= 0.1;
+              //avatarModel.rotation = new Vector3(0, Math.PI / 2, 0);
+              avatarModel.rotation = new Vector3(-(Math.PI / 2), -(Math.PI / 2), 0);
+              if (avatarModel.position.x > -310) {
+                avatarModel.position.x -= 10;
+                nicknamePlane.position.x -= 10;
+              }
               break;
-            case "w" || "W":
+            case "w" || "W" || "ㅈ":
               if (walkRange) walkRange.start(true, 1.0, walkRange.from, walkRange.to, false);
-              avatarModel.rotation = new Vector3(0, Math.PI, 0);
-              avatarModel.position.z += 0.1;
-              nicknamePlane.position.z += 0.1;
+              //avatarModel.rotation = new Vector3(0, Math.PI, 0);
+              avatarModel.rotation = new Vector3(-(Math.PI / 2), 0, 0);
+              if (avatarModel.position.z < 220) {
+                avatarModel.position.z += 10;
+                nicknamePlane.position.z += 10;
+              }
               break;
-            case "s" || "S":
+            case "s" || "S" || "ㄴ":
               if (walkRange) walkRange.start(true, 1.0, walkRange.from, walkRange.to, false);
-              avatarModel.rotation = new Vector3(0, Math.PI * 2, 0);
-              avatarModel.position.z -= 0.1;
-              nicknamePlane.position.z -= 0.1;
+              //avatarModel.rotation = new Vector3(0, Math.PI * 2, 0);
+              avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI, 0);
+              if (avatarModel.position.z > -320) {
+                avatarModel.position.z -= 10;
+                nicknamePlane.position.z -= 10;
+              }
               break;
             default:
               if (idleRange) idleRange.start(true, 1.0, idleRange.from, idleRange.to, false);

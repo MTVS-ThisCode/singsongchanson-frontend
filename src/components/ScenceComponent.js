@@ -1,25 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import "@babylonjs/core/Loading/loadingScreen";
-import "@babylonjs/loaders/glTF";
-import "@babylonjs/loaders/OBJ";
+// import "@babylonjs/loaders/glTF";
+// import "@babylonjs/loaders/OBJ";
 import "@babylonjs/core/Materials/standardMaterial";
 import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
-
 import SceneInitializer from "../babylon/SceneInitializer";
 
-import avatarJSON from "../data/avatar.json";
-import furnitureJSON from "../data/furniture.json";
 import musicListJSON from "../data/musicList.json";
 import { Button } from "react-bootstrap";
 import { BiFullscreen } from "react-icons/bi";
 
-function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOptions, user, ...rest }) {
+import { postRoomInfo } from "../apis/room";
+import { useNavigate } from "react-router-dom";
+
+function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOptions, user, isEdit, models, avatar, roomId, ...rest }) {
   const reactCanvas = useRef(null);
-  const [models, setModels] = useState([]);
   const [musicList, setMusicList] = useState([]);
-  const [avatar, setAvatar] = useState({});
   const [engine, setEngine] = useState(null);
+  const navigate = useNavigate();
 
   let box;
 
@@ -39,9 +38,7 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
   );
 
   useEffect(() => {
-    setModels([...furnitureJSON]);
     setMusicList([...musicListJSON]);
-    setAvatar(avatarJSON);
   }, []);
 
   const setScene = useCallback(async () => {
@@ -49,8 +46,8 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
     const sceneInitializer = new SceneInitializer();
     document.fullscreenEnabled = true;
     await sceneInitializer.setEngine(document);
-    await sceneInitializer.create(sceneOptions, canvas);
-    await sceneInitializer.onReady(models, musicList, avatar, user);
+    sceneInitializer.create(sceneOptions, canvas);
+    await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
     setEngine(sceneInitializer.scene.getEngine());
 
     sceneInitializer.engine.runRenderLoop(() => {
@@ -73,15 +70,45 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
         window.removeEventListener("resize", resize);
       }
     };
-  }, [sceneOptions, onRender, avatar, models, musicList, user]);
+  }, [sceneOptions, onRender, models, avatar]);
 
   // set up basic engine and scene
   useEffect(() => {
     setScene();
-  }, [antialias, engineOptions, adaptToDeviceRatio, setScene]);
+  }, [setScene, onRender]);
 
   const fullscreen = () => {
     engine.switchFullscreen();
+  };
+
+  const updateRoomHandler = async (engine, e) => {
+    const result = engine.scenes[0].getActiveMeshes().data.filter((mesh) => mesh.metadata !== null && "name" in mesh.metadata);
+
+    const updatedMesh = [];
+    result.forEach((element) => {
+      const furniture = {};
+      furniture.position = { x: element.position.x, y: element.position.y, z: element.position.z };
+      furniture.name = element.metadata.name;
+      furniture.url = element.metadata.url;
+      furniture.scale = element.metadata.scale;
+      furniture.rotation = { x: element.rotationQuaternion.x, y: element.rotationQuaternion.y, z: element.rotationQuaternion.z };
+
+      updatedMesh.push(furniture);
+    });
+
+    const body = {};
+    body.roomId = roomId;
+    body.furniture = updatedMesh;
+
+    await postRoomInfo(body).then((result) => {
+      if (result.status === 200) {
+        const data = result.data.data;
+        console.log(data);
+        localStorage.setItem("room", JSON.stringify([]));
+        alert("singsonroom이 업데이트 되었습니다!");
+        navigate(`/room/${roomId}`);
+      }
+    });
   };
 
   return (
@@ -92,6 +119,18 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
           <Button variant="dark" size="lg" onClick={fullscreen} style={{ position: "absolute", right: "24px", bottom: "24px", paddingLeft: "5px", paddingRight: "5px", paddingTop: "0px", paddingBottom: "3px", pointerEvents: "all" }}>
             <BiFullscreen style={{ width: "20px", height: "20px" }} />
           </Button>
+          {isEdit ? (
+            <Button
+              variant="dark"
+              size="md"
+              onClick={(e) => {
+                updateRoomHandler(engine, e);
+              }}
+              style={{ position: "absolute", right: "24px", bottom: "90%", pointerEvents: "all" }}
+            >
+              저장하기
+            </Button>
+          ) : null}
         </div>
       </div>
     </>

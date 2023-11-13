@@ -7,6 +7,8 @@ import SingsongRoom from "./pages/SingsongRoom";
 import RoomList from "./pages/RoomList";
 import Composition from "./pages/Composition";
 import MusicList from "./pages/MusicList";
+import SingsongRoomEdit from "./pages/SingSongRoomEdit";
+import AvatarEdit from "./pages/AvatarEdit";
 
 import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
 
@@ -62,9 +64,11 @@ function App() {
             <Route index element={<Main authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
             {/* <Route path="room" element={<SingsongRoom authenticated={authenticated} user={currentUser} />} />/*} */}
             <Route path="composition" element={<Composition authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
+            <Route path="avatar" element={<AvatarEdit authenticated={authenticated} user={currentUser} />} />
             <Route path="room">
               <Route index element={<RoomList authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
               <Route path=":roomId" element={<SingsongRoom authenticated={authenticated} user={currentUser} />} />
+              <Route path=":roomId/edit" element={<SingsongRoomEdit authenticated={authenticated} user={currentUser} />} />
             </Route>
             <Route path="music">
               <Route index element={<MusicList authenticated={authenticated} user={currentUser} logout={handleLogout} />} />

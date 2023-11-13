@@ -1,0 +1,74 @@
+[
+  {
+    "type": "furniture",
+    "name": "closet.glb",
+    "url": "/assets/",
+    "thumbnail": "/img/thumbnail/closet.png",
+    "scale": 1500,
+    "position": {
+      "x": 3,
+      "y": -25,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "desk.glb",
+    "url": "/assets/",
+    "thumbnail": "/img/thumbnail/desk.png",
+    "scale": 150,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "guitar.glb",
+    "thumbnail": "/img/thumbnail/guitar.png",
+    "url": "/assets/",
+    "scale": 0.3,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "keyboard.glb",
+    "thumbnail": "/img/thumbnail/keyboard.png",
+    "url": "/assets/",
+    "scale": 200,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "sofa.glb",
+    "thumbnail": "/img/thumbnail/sofa.png",
+    "url": "/assets/",
+    "scale": 150,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "type": "furniture",
+    "name": "speaker.glb",
+    "thumbnail": "/img/thumbnail/speaker.png",
+    "url": "/assets/",
+    "scale": 3,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+]
