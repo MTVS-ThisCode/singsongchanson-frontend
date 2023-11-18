@@ -24,11 +24,11 @@ class Avatar {
 
     Animation.AllowMatricesInterpolation = true;
 
-    const skeleton = result.skeletons[0];
-    skeleton.animationPropertiesOverride = new AnimationPropertiesOverride();
-    skeleton.animationPropertiesOverride.enableBlending = true;
-    skeleton.animationPropertiesOverride.blendingSpeed = 0.05;
-    skeleton.animationPropertiesOverride.loopMode = 0;
+    // const skeleton = result.skeletons[0];
+    // skeleton.animationPropertiesOverride = new AnimationPropertiesOverride();
+    // skeleton.animationPropertiesOverride.enableBlending = true;
+    // skeleton.animationPropertiesOverride.blendingSpeed = 0.05;
+    // skeleton.animationPropertiesOverride.loopMode = 0;
     return model;
   }
 
@@ -48,8 +48,8 @@ class Avatar {
               avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI / 2, 0);
               //avatarModel.rotate(Axis.Z, Math.PI / 2, Space.LOCAL);
               if (avatarModel.position.x < 370) {
-                avatarModel.position.x += 10;
-                nicknamePlane.position.x += 10;
+                avatarModel.position.x += 1;
+                nicknamePlane.position.x += 1;
               }
               break;
             case "d" || "D" || "ㅇ":
@@ -57,8 +57,8 @@ class Avatar {
               //avatarModel.rotation = new Vector3(0, Math.PI / 2, 0);
               avatarModel.rotation = new Vector3(-(Math.PI / 2), -(Math.PI / 2), 0);
               if (avatarModel.position.x > -310) {
-                avatarModel.position.x -= 10;
-                nicknamePlane.position.x -= 10;
+                avatarModel.position.x -= 1;
+                nicknamePlane.position.x -= 1;
               }
               break;
             case "w" || "W" || "ㅈ":
@@ -66,8 +66,8 @@ class Avatar {
               //avatarModel.rotation = new Vector3(0, Math.PI, 0);
               avatarModel.rotation = new Vector3(-(Math.PI / 2), 0, 0);
               if (avatarModel.position.z < 220) {
-                avatarModel.position.z += 10;
-                nicknamePlane.position.z += 10;
+                avatarModel.position.z += 1;
+                nicknamePlane.position.z += 1;
               }
               break;
             case "s" || "S" || "ㄴ":
@@ -75,8 +75,8 @@ class Avatar {
               //avatarModel.rotation = new Vector3(0, Math.PI * 2, 0);
               avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI, 0);
               if (avatarModel.position.z > -320) {
-                avatarModel.position.z -= 10;
-                nicknamePlane.position.z -= 10;
+                avatarModel.position.z -= 1;
+                nicknamePlane.position.z -= 1;
               }
               break;
             default:

@@ -13,6 +13,7 @@ import { BiFullscreen } from "react-icons/bi";
 
 import { postRoomInfo } from "../apis/room";
 import { useNavigate } from "react-router-dom";
+import { getMymusic } from "../apis/song";
 
 function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOptions, user, isEdit, models, avatar, roomId, ...rest }) {
   const reactCanvas = useRef(null);
@@ -37,40 +38,51 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
     [box]
   );
 
+  // useEffect(() => {
+  //   setMusicList([...musicListJSON]);
+  // }, []);
+
   useEffect(() => {
-    setMusicList([...musicListJSON]);
+    getMymusic(user.userNo).then((result) => {
+      if (result.status === 200) {
+        const data = result.data.data;
+        setMusicList([...data]);
+      }
+    });
   }, []);
 
   const setScene = useCallback(async () => {
-    const { current: canvas } = reactCanvas;
-    const sceneInitializer = new SceneInitializer();
-    document.fullscreenEnabled = true;
-    await sceneInitializer.setEngine(document);
-    sceneInitializer.create(sceneOptions, canvas);
-    await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
-    setEngine(sceneInitializer.scene.getEngine());
+    if (models) {
+      const { current: canvas } = reactCanvas;
+      const sceneInitializer = new SceneInitializer();
+      document.fullscreenEnabled = true;
+      await sceneInitializer.setEngine(document);
+      sceneInitializer.create(sceneOptions, canvas);
+      await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
+      setEngine(sceneInitializer.scene.getEngine());
 
-    sceneInitializer.engine.runRenderLoop(() => {
-      if (typeof onRender === "function") onRender(sceneInitializer.scene);
-      sceneInitializer.scene.render();
-    });
+      sceneInitializer.engine.runRenderLoop(() => {
+        if (typeof onRender === "function") onRender(sceneInitializer.scene);
+        sceneInitializer.scene.render();
+      });
 
-    const resize = () => {
-      sceneInitializer.scene.getEngine().resize();
-    };
-
-    if (window) {
-      window.addEventListener("resize", resize);
-    }
-
-    return () => {
-      //sceneInitializer.scene.getEngine().dispose();
+      const resize = () => {
+        sceneInitializer.scene.getEngine().resize();
+      };
 
       if (window) {
-        window.removeEventListener("resize", resize);
+        window.addEventListener("resize", resize);
       }
-    };
-  }, [sceneOptions, onRender, models, avatar]);
+
+      return () => {
+        //sceneInitializer.scene.getEngine().dispose();
+
+        if (window) {
+          window.removeEventListener("resize", resize);
+        }
+      };
+    }
+  }, [sceneOptions, onRender, models, avatar, musicList, isEdit]);
 
   // set up basic engine and scene
   useEffect(() => {
@@ -93,8 +105,12 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
       furniture.scale = element.metadata.scale;
       furniture.rotation = { x: element.rotationQuaternion.x, y: element.rotationQuaternion.y, z: element.rotationQuaternion.z };
 
-      updatedMesh.push(furniture);
+      const exist = updatedMesh.findIndex((f) => f.name === element.metadata.name);
+      if (exist === -1) {
+        updatedMesh.push(furniture);
+      }
     });
+    console.log(updatedMesh);
 
     const body = {};
     body.roomId = roomId;

@@ -1,8 +1,9 @@
-import { Scene, Engine, WebGPUEngine, Vector3, HemisphericLight, DirectionalLight, MeshBuilder, ArcRotateCamera, Color3, StandardMaterial, CubeTexture, Texture } from "@babylonjs/core";
+import { Scene, Engine, WebGPUEngine, Vector3, HemisphericLight, DirectionalLight, MeshBuilder, ArcRotateCamera, Color3, StandardMaterial, CubeTexture, Texture, TransformNode } from "@babylonjs/core";
 import { GUI3DManager } from "@babylonjs/gui";
 import Avatar from "./Avatar";
 import Furniture from "./Furniture";
 import Room from "./Room";
+const loaders = require("babylonjs-loaders");
 
 class SceneInitializer {
   setSkybox() {
@@ -62,6 +63,7 @@ class SceneInitializer {
 
     if (this.scene.isReady()) {
       this.guiManager = new GUI3DManager(this.scene);
+      this.anchor = new TransformNode("");
       // Lights
       const light = new HemisphericLight("light1", new Vector3(0, 1, 0), this.scene);
       light.position = new Vector3(0, 3000, 1000);
@@ -79,7 +81,7 @@ class SceneInitializer {
       this.scene.activeCamera = this.camera1;
       //scene.activeCamera.attachControl(canvas, true);
       this.camera1.attachControl(canvas, true); // 특정 DOM 요소와 카메라를 연결
-      this.camera1.lowerRadiusLimit = 5; // radius : target과 카메라 까지의 거리
+      this.camera1.lowerRadiusLimit = 10; // radius : target과 카메라 까지의 거리
       this.camera1.upperRadiusLimit = 10000;
       this.camera1.upperBetaLimit = Math.PI / 2 - 0.1; // beta : 위도 회전(라디안)
       this.camera1.wheelDeltaPercentage = 0.1; // 마우스 휠 델타 백분율 또는 카메라 확대/축소 속도를 가져오거나 설정
@@ -147,7 +149,7 @@ class SceneInitializer {
         if (isEdit) {
           Furniture.dragOn(musicStorege);
         } else {
-          Furniture.click(musicStorege, this.scene, this.guiManager, musicList);
+          Furniture.click(musicStorege, this.scene, this.guiManager, this.anchor, musicList);
         }
       });
     }

@@ -1,17 +1,27 @@
 import { Sound, Vector3 } from "@babylonjs/core";
 
 import { HolographicButton, TextBlock, Button } from "@babylonjs/gui";
+import axios from "axios";
 
 class MusicButton {
-  constructor(url, name, scene, listButtonPosition) {
+  constructor(url, name, scene, panel) {
     let music;
     // const musicPlayButton = new HolographicButton("Music Button");
+    this.musicPlayButton = new HolographicButton("Music Button");
     // guiManager.addControl(musicPlayButton);
-    this.musicPlayButton = Button.CreateSimpleButton("but1", name);
-    this.musicPlayButton.width = "300px";
-    this.musicPlayButton.height = "40px";
-    this.musicPlayButton.color = "white";
-    this.musicPlayButton.background = "green";
+    //this.musicPlayButton = Button.CreateSimpleButton("but1", name);
+    // this.musicPlayButton.width = "300px";
+    // this.musicPlayButton.height = "40px";
+    // this.musicPlayButton.color = "white";
+    // this.musicPlayButton.background = "green";
+    // this.musicPlayButton.text = name;
+    const playText = new TextBlock();
+    playText.text = `music #${name}`;
+    playText.color = "Red";
+    playText.fontSize = 100;
+    this.musicPlayButton.content = playText;
+    //this.musicPlayButton.text = `music #${name}`;
+    this.musicPlayButton.isVisible = true;
 
     // Must be done AFTER addControl in order to overwrite the default content
     // const playText = new TextBlock();
@@ -26,12 +36,14 @@ class MusicButton {
 
     let clicked = true;
     let timestamp;
+
     this.musicPlayButton.onPointerClickObservable.add(() => {
       console.log("clicked : ", clicked);
       if (clicked) {
         music = new Sound("", url, scene, null, { autoplay: true, loop: true });
         console.log("play music");
         console.log(music);
+        music.play();
         //this.musicPlayButton.textBlock.text = `Stop`;
         timestamp = setInterval(() => {
           if (music) {
@@ -40,13 +52,15 @@ class MusicButton {
             var sec = parseInt(time % 60);
 
             const currentTime = `${min < 10 ? `0${min}` : min} : ${sec < 10 ? `0${sec}` : sec}`;
-            this.musicPlayButton.textBlock.text = `Stop - ${currentTime}`;
+            //this.musicPlayButton.text = `Stop - ${currentTime}`;
+            playText.text = `Stop - ${currentTime}`;
           }
         }, 1000);
       } else {
         if (music) {
           clearInterval(timestamp);
-          this.musicPlayButton.textBlock.text = name;
+          //this.musicPlayButton.text = `music #${name}`;
+          playText.text = `music #${name}`;
           console.log("stop music");
           music.stop();
         }

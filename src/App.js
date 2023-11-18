@@ -60,7 +60,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout user={currentUser} />}>
             <Route index element={<Main authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
             {/* <Route path="room" element={<SingsongRoom authenticated={authenticated} user={currentUser} />} />/*} */}
             <Route path="composition" element={<Composition authenticated={authenticated} user={currentUser} logout={handleLogout} />} />

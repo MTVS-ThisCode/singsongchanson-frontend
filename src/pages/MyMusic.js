@@ -8,15 +8,29 @@ import LoginBox from "../components/LoginBox";
 import UserBox from "../components/UserBox";
 import MusicPlayer from "../components/MusicPlayer";
 
-import musicList from "../data/musicList.json";
+//import musicList from "../data/musicList.json";
+
+import { getMymusic } from "../apis/song";
 
 function MyMusic({ authenticated, user, logout }) {
   let { userId } = useParams();
+  const [musicList, setMusicList] = useState([]);
   console.log("userId : ", userId);
 
   const playMusicHandler = (e) => {
     console.log(e);
   };
+
+  useEffect(() => {
+    getMymusic(userId).then((result) => {
+      console.log(result);
+      if (result.status === 200) {
+        const data = result.data.data;
+        console.log(data);
+        setMusicList([...data]);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -27,12 +41,12 @@ function MyMusic({ authenticated, user, logout }) {
           <div className="col-8">
             {musicList.map((music) => (
               <div style={{ width: "180px", height: "180px", padding: "2px", margin: "10px", float: "left" }}>
-                <Card className="bg-dark text-white" onClick={playMusicHandler}>
-                  <Card.Img src="/img/3rdPrototype.jpeg" alt="Card image" style={{ backgroundColor: "black", opacity: "0.5" }} />
+                <Card className="bg-dark text-white" onClick={playMusicHandler} key={music.musicNo}>
+                  <Card.Img src={music.albumImgUrl} alt="Card image" style={{ backgroundColor: "black", opacity: "0.5" }} />
                   <Card.ImgOverlay>
                     <Card.Title>{music.title}</Card.Title>
                     <Card.Text>{music.description}</Card.Text>
-                    <MusicPlayer url={music.url} />
+                    <MusicPlayer url={music.musicUrl} />
                   </Card.ImgOverlay>
                 </Card>
               </div>

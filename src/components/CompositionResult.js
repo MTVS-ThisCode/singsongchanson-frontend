@@ -17,7 +17,7 @@ function CompositionResult({ results }) {
         <div>
           {results.status === 200 ? (
             <div>
-              <div style={{ width: "180px", height: "180px", padding: "2px", margin: "10px", float: "left" }}>
+              <div style={{ width: "500px", height: "500px", padding: "2px", margin: "10px", float: "left" }}>
                 <Card className="bg-dark text-white">
                   <Card.Img src={results.data.data.albumImgUrl} alt="Card image" style={{ backgroundColor: "black", opacity: "0.5" }} />
                   <Card.ImgOverlay>

@@ -4,7 +4,7 @@ import { CiMenuBurger } from "react-icons/ci";
 import styles from "./Header.module.css";
 import Image from "react-bootstrap/Image";
 
-function SideMenu({ toggled, setToggled }) {
+function SideMenu({ toggled, setToggled, user }) {
   return (
     <div style={{ display: "flex", height: "100%" }}>
       <Sidebar onBackdropClick={() => setToggled(false)} toggled={toggled} breakPoint="always" backgroundColor="white" width="350px">
@@ -46,9 +46,11 @@ function SideMenu({ toggled, setToggled }) {
             <MenuItem icon={<Image src="/img/composition.png" style={{ width: "30px", height: "30px" }} />} component={<Link to="/composition" />}>
               AI 작곡하기
             </MenuItem>
-            <MenuItem icon={<Image src="/img/composition.png" style={{ width: "30px", height: "30px" }} />} component={<Link to="/music/2" />}>
-              마이 뮤직
-            </MenuItem>
+            {user !== null ? (
+              <MenuItem icon={<Image src="/img/composition.png" style={{ width: "30px", height: "30px" }} />} component={<Link to={`/music/${user.userNo}`} />}>
+                마이 뮤직
+              </MenuItem>
+            ) : null}
           </Menu>
         </div>
       </Sidebar>

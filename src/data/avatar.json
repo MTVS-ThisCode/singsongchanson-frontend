@@ -1,8 +1,8 @@
 {
   "male": {
-    "name": "Reaction.fbx",
+    "name": "Walking.fbx",
     "url": "/assets/",
-    "scale": 0.03,
+    "scale": 1,
     "position": {
       "x": 0,
       "y": 0,
@@ -10,9 +10,9 @@
     }
   },
   "female": {
-    "name": "Reaction.fbx",
+    "name": "Walking.fbx",
     "url": "/assets/",
-    "scale": 0.03,
+    "scale": 1,
     "position": {
       "x": 0,
       "y": 0,

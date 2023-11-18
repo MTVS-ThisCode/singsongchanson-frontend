@@ -34,7 +34,6 @@ function SingsongRoom({ authenticated, user, logout }) {
         }
       }
     });
-    setModels([...modelJSON]);
     let userGender;
     if (user !== null) {
       setRoomOwner(user.userNo);
@@ -70,11 +69,11 @@ function SingsongRoom({ authenticated, user, logout }) {
                       내 방 꾸미기
                     </Link>
                   </Button>
-                  <Button variant="outline-secondary" size="lg">
+                  {/* <Button variant="outline-secondary" size="lg">
                     <Link to={`/avatar`} style={{ textDecoration: "none", color: "black" }}>
                       아바타 수정하기
                     </Link>
-                  </Button>
+                  </Button> */}
                 </>
               ) : null}
             </div>

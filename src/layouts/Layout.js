@@ -4,14 +4,14 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Container from "react-bootstrap/Container";
 
-function Layout() {
+function Layout({ user }) {
   const [toggled, setToggled] = useState(false);
 
   return (
     <>
       <Header toggled={toggled} setToggled={setToggled} />
       <div style={{ display: "flex", height: "100%", minHeight: "100vh" }}>
-        <SideMenu toggled={toggled} setToggled={setToggled} />
+        <SideMenu toggled={toggled} setToggled={setToggled} user={user} />
         <Container>
           <Outlet />
         </Container>

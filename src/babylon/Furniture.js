@@ -1,4 +1,5 @@
 import { SceneLoader, PointerDragBehavior } from "@babylonjs/core";
+import { AdvancedDynamicTexture, Rectangle, StackPanel, Button } from "@babylonjs/gui";
 
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/loaders/glTF";
@@ -122,38 +123,24 @@ class Furniture {
     });
   }
 
-  static click(furnitureModel, scene, guiManager, musicList) {
-    let listEvent = true;
+  static click(furnitureModel, scene, guiManager, anchor, musicList) {
+    let created = false;
+    const musicPannel = new MusicListPage(musicList, scene, guiManager, anchor, furnitureModel.position);
     scene.onPointerDown = function (evt, pickResult) {
       // We try to pick an object
       if (pickResult.hit) {
-        if (pickResult.pickedMesh.metadata) {
+        if (pickResult.pickedMesh.metadata !== undefined) {
           const meshName = pickResult.pickedMesh.metadata.name;
-          console.log(meshName);
-          switch (meshName) {
-            case "keyboard.glb":
-              // const musicListButton = new MusicListButton(guiManager, musicList, this.scene, furnitureModel.position);
-              // console.log(listEvent);
-              // if (listEvent) {
-              //   musicListButton.musicListPanel.children.forEach((btn) => {
-              //     btn.isVisible = true;
-              //   });
-              //   listEvent = false;
-              // } else {
-              //   musicListButton.musicListPanel.children.forEach((btn) => {
-              //     btn.isVisible = false;
-              //   });
-              //   listEvent = true;
-              // }
-              new MusicListPage(guiManager, musicList, scene, pickResult.pickedMesh.position);
-              break;
-            case "guitar.glb":
-              new MusicListPage(guiManager, musicList, scene, pickResult.pickedMesh.position);
-              break;
-            case "pCube1_cor_0":
-              break;
-            default:
-              break;
+          if (meshName === "keyboard.glb" || meshName === "guitar.glb") {
+            if (!created) {
+              // MusicListPage.create(musicList, scene, guiManager, anchor, pickResult.pickedMesh._absolutePosition);
+              musicPannel.open();
+              created = !created;
+            } else {
+              musicPannel.close();
+              console.log("closed");
+              created = !created;
+            }
           }
         }
       }
