@@ -58,7 +58,10 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
       document.fullscreenEnabled = true;
       await sceneInitializer.setEngine(document);
       sceneInitializer.create(sceneOptions, canvas);
-      await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
+      sceneInitializer.scene.executeWhenReady(async () => {
+        await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
+      });
+
       setEngine(sceneInitializer.scene.getEngine());
 
       sceneInitializer.engine.runRenderLoop(() => {

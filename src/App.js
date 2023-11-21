@@ -9,6 +9,7 @@ import Composition from "./pages/Composition";
 import MusicList from "./pages/MusicList";
 import SingsongRoomEdit from "./pages/SingSongRoomEdit";
 import AvatarEdit from "./pages/AvatarEdit";
+import Chart from "./pages/Chart";
 
 import OAuth2RedirectHandler from "./oauth2/OAuth2RedirectHandler";
 
@@ -74,6 +75,7 @@ function App() {
               <Route index element={<MusicList authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
               <Route path=":userId" element={<MyMusic authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
             </Route>
+            <Route path="chart" element={<Chart authenticated={authenticated} user={currentUser} logout={handleLogout} />} />
           </Route>
           <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         </Routes>

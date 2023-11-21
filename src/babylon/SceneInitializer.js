@@ -3,6 +3,7 @@ import { GUI3DManager } from "@babylonjs/gui";
 import Avatar from "./Avatar";
 import Furniture from "./Furniture";
 import Room from "./Room";
+import "@babylonjs/core/Engines/WebGPU/Extensions";
 const loaders = require("babylonjs-loaders");
 
 class SceneInitializer {
@@ -42,25 +43,24 @@ class SceneInitializer {
 
   async setEngine(document) {
     const canvas = document.querySelector("canvas");
-    // const webGPUSupported = await WebGPUEngine.IsSupportedAsync;
-    // if (webGPUSupported) {
-    //   this.engine = new WebGPUEngine(canvas, {
-    //     enableAllFeatures: true,
-    //     // deviceDescriptor: {
-    //     //   requiredFeatures: ["depth-clip-control", "depth24unorm-stencil8", "depth32float-stencil8", "texture-compression-bc", "texture-compression-etc2", "texture-compression-astc", "timestamp-query", "indirect-first-instance"],
-    //     // },
-    //   });
-    //   await this.engine.initAsync();
-    // } else {
-    //   this.engine = new Engine(canvas, true);
-    // }
-    this.engine = new Engine(canvas, true);
+    const webGPUSupported = await WebGPUEngine.IsSupportedAsync;
+    if (webGPUSupported) {
+      this.engine = new WebGPUEngine(canvas, {
+        enableAllFeatures: true,
+        // deviceDescriptor: {
+        //   requiredFeatures: ["depth-clip-control", "depth24unorm-stencil8", "depth32float-stencil8", "texture-compression-bc", "texture-compression-etc2", "texture-compression-astc", "timestamp-query", "indirect-first-instance"],
+        // },
+      });
+      await this.engine.initAsync();
+    } else {
+      this.engine = new Engine(canvas, true);
+    }
+    //this.engine = new Engine(canvas, true);
   }
 
   create(sceneOption, canvas) {
     this.engine.enableOfflineSupport = false;
     this.scene = new Scene(this.engine);
-
     if (this.scene.isReady()) {
       this.guiManager = new GUI3DManager(this.scene);
       this.anchor = new TransformNode("");
@@ -81,8 +81,8 @@ class SceneInitializer {
       this.scene.activeCamera = this.camera1;
       //scene.activeCamera.attachControl(canvas, true);
       this.camera1.attachControl(canvas, true); // 특정 DOM 요소와 카메라를 연결
-      this.camera1.lowerRadiusLimit = 10; // radius : target과 카메라 까지의 거리
-      this.camera1.upperRadiusLimit = 10000;
+      this.camera1.lowerRadiusLimit = 100; // radius : target과 카메라 까지의 거리
+      this.camera1.upperRadiusLimit = 3000;
       this.camera1.upperBetaLimit = Math.PI / 2 - 0.1; // beta : 위도 회전(라디안)
       this.camera1.wheelDeltaPercentage = 0.1; // 마우스 휠 델타 백분율 또는 카메라 확대/축소 속도를 가져오거나 설정
       this.camera1.inputs.attached.pointers.panningSensibility = 10;

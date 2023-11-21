@@ -7,6 +7,7 @@ export const postRoomInfo = (data) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {
@@ -20,6 +21,7 @@ export const getRoomList = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {
@@ -33,6 +35,7 @@ export const getRoomInfo = (roomId) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {

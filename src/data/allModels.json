@@ -1,7 +1,7 @@
 [
   {
     "type": "furniture",
-    "name": "closet.glb",
+    "name": "wardrobe.fbx",
     "url": "/assets/",
     "thumbnail": "/img/thumbnail/closet.png",
     "scale": 1500,
@@ -13,7 +13,7 @@
   },
   {
     "type": "furniture",
-    "name": "office_computer.glb",
+    "name": "table.fbx",
     "url": "/assets/",
     "thumbnail": "/img/thumbnail/desk.png",
     "scale": 1,
@@ -49,7 +49,7 @@
   },
   {
     "type": "furniture",
-    "name": "sofa1.fbx",
+    "name": "sofa.fbx",
     "thumbnail": "/img/thumbnail/sofa.png",
     "url": "/assets/",
     "scale": 1,

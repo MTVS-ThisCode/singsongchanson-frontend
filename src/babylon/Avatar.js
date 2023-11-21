@@ -5,6 +5,10 @@ import "@babylonjs/core/Loading/loadingScreen";
 // import "@babylonjs/loaders/OBJ";
 import "@babylonjs/core/Materials/standardMaterial";
 import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
+import "@babylonjs/core/Engines/WebGPU/Extensions/engine.uniformBuffer";
+import "@babylonjs/core/Engines/WebGPU/Extensions/engine.dynamicTexture";
+import "@babylonjs/core/Engines/WebGPU/Extensions/engine.alpha";
+import "@babylonjs/core/Engines/WebGPU/Extensions/engine.dynamicBuffer";
 import { FBXLoader } from "babylonjs-fbx-loader";
 
 class Avatar {

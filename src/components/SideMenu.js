@@ -51,6 +51,9 @@ function SideMenu({ toggled, setToggled, user }) {
                 마이 뮤직
               </MenuItem>
             ) : null}
+            <MenuItem icon={<Image src="/img/rank.png" style={{ width: "30px", height: "30px" }} />} component={<Link to="/chart" />}>
+              싱송차트
+            </MenuItem>
           </Menu>
         </div>
       </Sidebar>
