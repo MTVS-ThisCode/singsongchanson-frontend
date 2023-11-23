@@ -40,7 +40,7 @@ function UserBox({ user, logout }) {
           </Col>
         </Row>
       </div>
-      <div style={{ marginLeft: "12px" }}>
+      {/* <div style={{ marginLeft: "12px" }}>
         <Row className={loginStyle.signInBtn}>
           <Col className={loginStyle.box}>팔로워</Col>
           <Col className={loginStyle.box}>팔로잉</Col>
@@ -50,7 +50,7 @@ function UserBox({ user, logout }) {
         <Row className={loginStyle.signInBtn}>
           <Col className={loginStyle.box}>캐릭터 생성하기</Col>
         </Row>
-      </div>
+      </div> */}
     </Stack>
   );
 }

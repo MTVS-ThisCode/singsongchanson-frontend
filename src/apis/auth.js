@@ -7,7 +7,6 @@ export const getCurrentUser = (accessToken) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {
@@ -21,7 +20,6 @@ export const postAvatar = (accessToken, formData) => {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${accessToken}`,
-        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {

@@ -40,6 +40,7 @@ class Avatar {
     console.log(scene);
     const idleRange = scene.getAnimationGroupByName("Idle");
     const walkRange = scene.getAnimationGroupByName("AnimStack::mixamo.com");
+    const movement = 10;
     //const idleRange = scene.animationGroups[0];
     //const walkRange = scene.animationGroups[1];
 
@@ -52,8 +53,8 @@ class Avatar {
               avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI / 2, 0);
               //avatarModel.rotate(Axis.Z, Math.PI / 2, Space.LOCAL);
               if (avatarModel.position.x < 370) {
-                avatarModel.position.x += 1;
-                nicknamePlane.position.x += 1;
+                avatarModel.position.x += movement;
+                nicknamePlane.position.x += movement;
               }
               break;
             case "d" || "D" || "ㅇ":
@@ -61,8 +62,8 @@ class Avatar {
               //avatarModel.rotation = new Vector3(0, Math.PI / 2, 0);
               avatarModel.rotation = new Vector3(-(Math.PI / 2), -(Math.PI / 2), 0);
               if (avatarModel.position.x > -310) {
-                avatarModel.position.x -= 1;
-                nicknamePlane.position.x -= 1;
+                avatarModel.position.x -= movement;
+                nicknamePlane.position.x -= movement;
               }
               break;
             case "w" || "W" || "ㅈ":
@@ -70,8 +71,8 @@ class Avatar {
               //avatarModel.rotation = new Vector3(0, Math.PI, 0);
               avatarModel.rotation = new Vector3(-(Math.PI / 2), 0, 0);
               if (avatarModel.position.z < 220) {
-                avatarModel.position.z += 1;
-                nicknamePlane.position.z += 1;
+                avatarModel.position.z += movement;
+                nicknamePlane.position.z += movement;
               }
               break;
             case "s" || "S" || "ㄴ":
@@ -79,8 +80,8 @@ class Avatar {
               //avatarModel.rotation = new Vector3(0, Math.PI * 2, 0);
               avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI, 0);
               if (avatarModel.position.z > -320) {
-                avatarModel.position.z -= 1;
-                nicknamePlane.position.z -= 1;
+                avatarModel.position.z -= movement;
+                nicknamePlane.position.z -= movement;
               }
               break;
             default:

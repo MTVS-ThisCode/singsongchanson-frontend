@@ -24,6 +24,7 @@ function SingsongRoomEdit({ authenticated, user, logout }) {
 
   useEffect(() => {
     const initroom = [];
+    localStorage.setItem("room", JSON.stringify(initroom));
     getRoomInfo(roomId)
       .then((result) => {
         if (result.status === 200) {

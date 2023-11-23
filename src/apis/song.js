@@ -7,7 +7,6 @@ export const postSongprompt = (formData) => {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {
@@ -18,11 +17,10 @@ export const postSongprompt = (formData) => {
 
 export const postImage = (formData) => {
   return axios
-    .post(`${API_BASE_URL}/api/v1/musics`, formData, {
+    .post(`${API_BASE_URL}/api/v1/musics/image`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {
@@ -37,7 +35,6 @@ export const getMymusic = (userNo) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {
@@ -51,7 +48,6 @@ export const getAllmusic = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        "ngrok-skip-browser-warning": "1",
       },
     })
     .catch((error) => {

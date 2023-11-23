@@ -18,7 +18,6 @@ import { getRoomInfo } from "../apis/room";
 function SingsongRoom({ authenticated, user, logout }) {
   let { roomId } = useParams();
   const navigate = useNavigate();
-  const [comment, setComment] = useState([]);
   const [roomOwner, setRoomOwner] = useState(null);
 
   const [models, setModels] = useState([]);
@@ -42,7 +41,6 @@ function SingsongRoom({ authenticated, user, logout }) {
       userGender = "female";
     }
     setAvatar(avatarJSON[userGender]);
-    setComment([...commentJSON]);
   }, []);
 
   return (
@@ -56,7 +54,7 @@ function SingsongRoom({ authenticated, user, logout }) {
         </Row>
         <Row style={{ marginTop: "20px" }}>
           <div className="col-8">
-            <CommentList user={user} commentList={comment} />{" "}
+            <CommentList user={user} roomId={roomId} />{" "}
           </div>
           <div className="vr" style={{ padding: "0px" }} />
           <div className="col-3" style={{ marginLeft: "20px" }}>

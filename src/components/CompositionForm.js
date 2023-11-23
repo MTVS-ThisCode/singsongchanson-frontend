@@ -12,35 +12,35 @@ import { postSongprompt, postImage } from "../apis/song";
 
 function CompositionForm({ setPost, setResults }) {
   const [image, setImage] = useState(null);
-  const [key, setKey] = useState(null);
-  const [speed, setSpeed] = useState(null);
+  const [scale, setScale] = useState(null);
+  const [genre, setGenre] = useState(null);
   const [length, setLength] = useState(null);
   const [prompt, setPrompt] = useState(null);
-  const [styleList, setStyleList] = useState([]);
+  const [instrumentList, setInstrumentList] = useState([]);
 
-  const handleKeyChange = (e) => {
-    setKey(e.target.value);
+  const handleScaleChange = (e) => {
+    setScale(e.target.value);
   };
-  const handleSpeedChange = (e) => {
-    setSpeed(e.target.value);
+  const handleGenreChange = (e) => {
+    setGenre(e.target.value);
   };
   const handleLengthChange = (e) => {
-    setLength(e.target.value);
+    setLength(parseInt(e.target.value));
   };
 
   const handlePromptChange = (e) => {
     setPrompt(e.target.value);
   };
 
-  const handleStyleChange = (e) => {
+  const handleInstrumentChange = (e) => {
     const style = e.target.value;
-    const array = [...styleList];
+    const array = [...instrumentList];
     const index = array.findIndex((el) => el === style);
     if (index === -1) {
-      setStyleList([...array, style]);
+      setInstrumentList([...array, style]);
     } else {
       array.splice(index, 1);
-      setStyleList([...array]);
+      setInstrumentList([...array]);
     }
   };
 
@@ -49,7 +49,10 @@ function CompositionForm({ setPost, setResults }) {
     const formData = new FormData();
 
     formData.append("keyword", prompt);
-    formData.append("style", styleList);
+    formData.append("duration", length);
+    formData.append("scale", scale);
+    formData.append("instrument", instrumentList);
+    formData.append("genre", genre);
 
     const data = Object.fromEntries(formData);
     console.log("data", data);
@@ -71,7 +74,7 @@ function CompositionForm({ setPost, setResults }) {
     setPost(true);
     const formData = new FormData();
 
-    formData.append("image", image);
+    formData.append("imageFile", image);
 
     const data = Object.fromEntries(formData);
     console.log("data", data);
@@ -97,49 +100,46 @@ function CompositionForm({ setPost, setResults }) {
       <Row className="xs-8" style={{ backgroundColor: "#F5F5F5" }}>
         <Form.Group>
           <Form.Label>
-            <b>Style</b>
+            <b>Instrument</b>
           </Form.Label>
           {["checkbox"].map((type) => (
             <div key={`inline-${type}`} className="mb-3">
-              {["Calm", "Dramatic", "Energizing", "Suspenseful", "Unusual", "Acoustic", "Jazz", "Hip-Hop", "Pop", "R&B", "Piano", "Guitar", "Strings", "Drums", "Synthesizer"].map((style) => (
-                <Form.Check inline label={style} name="style" type={type} id={`inline-${type}-1`} value={style} onChange={handleStyleChange} />
+              {["Piano", "Guitar", "Bass guitar", "Drums", "Violin", "Synthesizer"].map((style) => (
+                <Form.Check inline label={style} name="style" type={type} id={`inline-${type}-1`} value={style} onChange={handleInstrumentChange} />
               ))}
             </div>
           ))}
         </Form.Group>
         <Form.Group as={Col} controlId="formGridKey">
           <Form.Label>조성</Form.Label>
-          <Form.Select defaultValue="Auto" onChange={handleKeyChange}>
-            <option value="Major">Major</option>
-            <option value="Minor">Minor</option>
-            <option value="Auto">Auto</option>
+          <Form.Select defaultValue="Auto" onChange={handleScaleChange} value={scale}>
+            {["Scale", "C Major", "G Major", "A Minor", "E Minor", "D Major", "A Major", "E Major"].map((key) => (
+              <option value={key} key={key}>
+                {key}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
 
         <Form.Group as={Col} controlId="formGridSpeed">
-          <Form.Label>빠르기</Form.Label>
-          <Form.Select defaultValue="Slow" onChange={handleSpeedChange}>
-            <option value="Slow">Slow</option>
-            <option value="Medium">Medium</option>
-            <option value="Fast">Fast</option>
+          <Form.Label>장르</Form.Label>
+          <Form.Select defaultValue="Slow" onChange={handleGenreChange} value={genre}>
+            {["Genre", "Pop", "Rock", "Jazz", "Classical", "Country", "Electronic", "BGM", "Reggae"].map((genre) => (
+              <option value={genre} key={genre}>
+                {genre}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
 
         <Form.Group as={Col} controlId="formGridLength">
-          <Form.Label>길이</Form.Label>
-          <Form.Select defaultValue="Auto" onChange={handleLengthChange}>
-            <option value="Auto">Auto</option>
-            <option value="< 0'30"> {"<"} 0'30 </option>
-            <option value="0'30 - 1'00"> 0'30 - 1'00 </option>
-            <option value="0'30 - 1'00"> 1'00 - 1'30 </option>
-            <option value="1'30 - 2'00"> 1'30 - 2'00 </option>
-            <option value="2'00 - 2'30"> 2'00 - 2'30 </option>
-            <option value="2'30 - 3'00"> 2'30 - 3'00 </option>
-            <option value="3'00 - 3'30"> 3'00 - 3'30 </option>
-            <option value="3'30 - 4'00"> 3'30 - 4'00 </option>
-            <option value="4'00 - 4'30"> 4'00 - 4'30 </option>
-            <option value="4'30 - 5'00"> 4'30 - 5'00 </option>
-            <option value="5'00 - 5'30"> 5'00 - 5'30 </option>
+          <Form.Label>길이(초)</Form.Label>
+          <Form.Select defaultValue="Auto" onChange={handleLengthChange} value={length}>
+            {["Duration", "15", "30", "60", "90", "120", "180"].map((duration) => (
+              <option value={duration} key={duration}>
+                {duration}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
 

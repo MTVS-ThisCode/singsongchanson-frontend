@@ -1,22 +1,21 @@
 import { SceneLoader, PointerDragBehavior } from "@babylonjs/core";
-import { AdvancedDynamicTexture, Rectangle, StackPanel, Button } from "@babylonjs/gui";
 
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/loaders/glTF";
 import "@babylonjs/loaders/OBJ";
 import "@babylonjs/core/Materials/standardMaterial";
 import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
-import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
 import "@babylonjs/core/Engines/WebGPU/Extensions/engine.uniformBuffer";
 import "@babylonjs/core/Engines/WebGPU/Extensions/engine.dynamicTexture";
 import "@babylonjs/core/Engines/WebGPU/Extensions/engine.alpha";
 import "@babylonjs/core/Engines/WebGPU/Extensions/engine.dynamicBuffer";
-import { Vector3 } from "babylonjs";
-import MusicListButton from "./MusicListButton";
+
 import MusicListPage from "./MusicListPage";
+import { FBXLoader } from "babylonjs-fbx-loader";
 
 class Furniture {
   async create(url, name, scale, scene, position, rotation, isEdit) {
+    SceneLoader.RegisterPlugin(new FBXLoader());
     const result = await SceneLoader.ImportMeshAsync("", url, name, scene);
 
     result.meshes.forEach((mesh) => {

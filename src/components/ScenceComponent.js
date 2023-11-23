@@ -59,6 +59,7 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
       await sceneInitializer.setEngine(document);
       sceneInitializer.create(sceneOptions, canvas);
       sceneInitializer.scene.executeWhenReady(async () => {
+        console.log("executeWhenReady");
         await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
       });
 
@@ -85,7 +86,7 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
         }
       };
     }
-  }, [sceneOptions, onRender, models, avatar, musicList, isEdit]);
+  }, [sceneOptions, onRender, user, avatar, models]);
 
   // set up basic engine and scene
   useEffect(() => {

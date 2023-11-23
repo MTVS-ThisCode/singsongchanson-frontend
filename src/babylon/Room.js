@@ -1,5 +1,4 @@
 import { Vector3, SceneLoader, KeyboardEventTypes, MeshBuilder, DynamicTexture, StandardMaterial } from "@babylonjs/core";
-import { HolographicButton, TextBlock, PlanePanel } from "@babylonjs/gui";
 
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/loaders/glTF";
