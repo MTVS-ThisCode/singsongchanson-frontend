@@ -5,6 +5,7 @@
     "url": "/assets/",
     "thumbnail": "/img/thumbnail/closet.png",
     "scale": 1,
+    "description": "옷장은 음악창작시 편안하게 작업에 몰두할 수 있는 환경을 조성하며, 싱송차트 리워드 보상을 확인할 수 있습니다.",
     "position": {
       "x": 3,
       "y": -25,
@@ -17,6 +18,7 @@
     "url": "/assets/",
     "thumbnail": "/img/thumbnail/desk.png",
     "scale": 1,
+    "description": "컴퓨터는 음악 작업에 있어 필수 소프트웨어 입니다. 음악 생성 및 미디 프로그램으로 음악을 편집하는데 도움을 줍니다.",
     "position": {
       "x": 0,
       "y": 0,
@@ -29,6 +31,7 @@
     "thumbnail": "/img/thumbnail/guitar.png",
     "url": "/assets/",
     "scale": 0.3,
+    "description": "기타는 감각적인 멜로디, 화려한 리프 등 음악에 독특한 감성을 부여하는 악기입니다. 싱송샹송 플랫폼에서 AI로 생성한 음악을 실행할 수 있는 기능이 있습니다.",
     "position": {
       "x": 0,
       "y": 0,
@@ -41,6 +44,7 @@
     "thumbnail": "/img/thumbnail/keyboard.png",
     "url": "/assets/",
     "scale": 200,
+    "description": "풍부한 음향과 다이내믹 표현이 가능한 피아노는 작곡과 멜로디 작업에 사용되는 필수 악기입니다. 싱송샹송 플랫폼에서 AI로 생성한 음악을 실행할 수 있는 기능이 있습니다.",
     "position": {
       "x": 0,
       "y": 0,
@@ -49,10 +53,11 @@
   },
   {
     "type": "furniture",
-    "name": "sofa1.fbx",
+    "name": "sofa.fbx",
     "thumbnail": "/img/thumbnail/sofa.png",
     "url": "/assets/",
     "scale": 1,
+    "description": "편안한 소파는 적절한 휴식과 아이디어를 정리하는 것에 도움을 줍니다.",
     "position": {
       "x": 0,
       "y": 0,
@@ -65,6 +70,7 @@
     "thumbnail": "/img/thumbnail/speaker.png",
     "url": "/assets/",
     "scale": 3,
+    "description": "스피커를 통해 음악의 섬세한 음향을 들으며 음악 작업을 할 수 있습니다.",
     "position": {
       "x": 0,
       "y": 0,

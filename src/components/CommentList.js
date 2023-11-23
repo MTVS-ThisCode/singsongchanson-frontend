@@ -76,7 +76,7 @@ function CommentList({ user, roomId }) {
                 <div className="vr" />
 
                 <div className="me-auto">{comment.content}</div>
-                <Dropdown className="d-inline mx-2" variant="outline-secondary">
+                <Dropdown className="" variant="outline-secondary" size="sm">
                   <Dropdown.Toggle id="dropdown-autoclose-true" variant="outline-secondary">
                     <CiMenuBurger />
                   </Dropdown.Toggle>

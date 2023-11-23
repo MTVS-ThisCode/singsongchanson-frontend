@@ -1,27 +1,26 @@
 import { Sound, Vector3 } from "@babylonjs/core";
 
-import { HolographicButton, TextBlock, Button } from "@babylonjs/gui";
+import { HolographicButton, TextBlock, Button, Image } from "@babylonjs/gui";
 import axios from "axios";
 
 class MusicButton {
-  constructor(url, name, scene, panel) {
+  constructor(url, imageUrl, name, scene, panel, guiManager) {
     let music;
     // const musicPlayButton = new HolographicButton("Music Button");
     this.musicPlayButton = new HolographicButton("Music Button");
-    // guiManager.addControl(musicPlayButton);
-    //this.musicPlayButton = Button.CreateSimpleButton("but1", name);
-    // this.musicPlayButton.width = "300px";
-    // this.musicPlayButton.height = "40px";
-    // this.musicPlayButton.color = "white";
-    // this.musicPlayButton.background = "green";
-    // this.musicPlayButton.text = name;
+    panel.addControl(this.musicPlayButton);
+    //guiManager.addControl(this.musicPlayButton);
+    this.musicPlayButton.scaling.x = 120;
+    this.musicPlayButton.scaling.y = 120;
+    this.musicPlayButton.scaling.z = 50;
+    this.musicPlayButton.imageUrl = imageUrl;
     const playText = new TextBlock();
     playText.text = `music #${name}`;
-    playText.color = "Red";
-    playText.fontSize = 100;
+    playText.color = "white";
+    playText.fontSize = 45;
     this.musicPlayButton.content = playText;
     //this.musicPlayButton.text = `music #${name}`;
-    this.musicPlayButton.isVisible = true;
+    //this.musicPlayButton.isVisible = true;
 
     // Must be done AFTER addControl in order to overwrite the default content
     // const playText = new TextBlock();
@@ -53,7 +52,7 @@ class MusicButton {
 
             const currentTime = `${min < 10 ? `0${min}` : min} : ${sec < 10 ? `0${sec}` : sec}`;
             //this.musicPlayButton.text = `Stop - ${currentTime}`;
-            playText.text = `Stop - ${currentTime}`;
+            playText.text = `Stop \n ${currentTime}`;
           }
         }, 1000);
       } else {

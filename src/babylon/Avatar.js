@@ -19,6 +19,7 @@ class Avatar {
     console.log(result);
     const model = result.meshes[0];
     model.scaling.scaleInPlace(scale);
+    model.rotation = new Vector3(-(Math.PI / 2), Math.PI, 0);
 
     model.position.x = position.x;
     model.position.y = position.y;
@@ -50,20 +51,21 @@ class Avatar {
           switch (kbInfo.event.key) {
             case "a" || "A" || "ㅁ":
               if (walkRange) walkRange.start(true, 1.0, walkRange.from, walkRange.to, false);
-              avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI / 2, 0);
+              avatarModel.rotation = new Vector3(-(Math.PI / 2), -(Math.PI / 2), 0);
               //avatarModel.rotate(Axis.Z, Math.PI / 2, Space.LOCAL);
-              if (avatarModel.position.x < 370) {
-                avatarModel.position.x += movement;
-                nicknamePlane.position.x += movement;
+              if (avatarModel.position.x > -310) {
+                avatarModel.position.x -= movement;
+                nicknamePlane.position.x -= movement;
               }
               break;
             case "d" || "D" || "ㅇ":
               if (walkRange) walkRange.start(true, 1.0, walkRange.from, walkRange.to, false);
               //avatarModel.rotation = new Vector3(0, Math.PI / 2, 0);
-              avatarModel.rotation = new Vector3(-(Math.PI / 2), -(Math.PI / 2), 0);
-              if (avatarModel.position.x > -310) {
-                avatarModel.position.x -= movement;
-                nicknamePlane.position.x -= movement;
+              avatarModel.rotation = new Vector3(-(Math.PI / 2), Math.PI / 2, 0);
+
+              if (avatarModel.position.x < 370) {
+                avatarModel.position.x += movement;
+                nicknamePlane.position.x += movement;
               }
               break;
             case "w" || "W" || "ㅈ":
@@ -133,7 +135,7 @@ class Avatar {
     //Create plane and set dynamic texture as material
     var plane = MeshBuilder.CreatePlane("plane", { width: planeWidth, height: planeHeight }, scene);
     plane.rotation.y = Math.PI;
-    plane.position.y = model.position.y + 8.5;
+    plane.position.y = model.position.y + 5;
     plane.material = mat;
 
     return plane;

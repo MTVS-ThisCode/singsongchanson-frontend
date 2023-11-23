@@ -77,12 +77,12 @@ class SceneInitializer {
 
       //this.setGround();
 
-      this.camera1 = new ArcRotateCamera("camera1", Math.PI * 1.5, Math.PI / 4, 1000, new Vector3(0, 0, 0), this.scene);
+      this.camera1 = new ArcRotateCamera("camera1", Math.PI * 1.5, Math.PI / 3, 500, new Vector3(0, 100, 0), this.scene);
       this.scene.activeCamera = this.camera1;
       //scene.activeCamera.attachControl(canvas, true);
       this.camera1.attachControl(canvas, true); // 특정 DOM 요소와 카메라를 연결
       this.camera1.lowerRadiusLimit = 100; // radius : target과 카메라 까지의 거리
-      this.camera1.upperRadiusLimit = 3000;
+      this.camera1.upperRadiusLimit = 1500;
       this.camera1.upperBetaLimit = Math.PI / 2 - 0.1; // beta : 위도 회전(라디안)
       this.camera1.wheelDeltaPercentage = 0.1; // 마우스 휠 델타 백분율 또는 카메라 확대/축소 속도를 가져오거나 설정
       this.camera1.inputs.attached.pointers.panningSensibility = 10;

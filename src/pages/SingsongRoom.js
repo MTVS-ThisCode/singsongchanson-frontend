@@ -18,24 +18,25 @@ import { getRoomInfo } from "../apis/room";
 function SingsongRoom({ authenticated, user, logout }) {
   let { roomId } = useParams();
   const navigate = useNavigate();
-  const [roomOwner, setRoomOwner] = useState(null);
+  const [roomOwner, setRoomOwner] = useState({ userNo: null, nickName: null, profileImg: null });
 
   const [models, setModels] = useState([]);
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     getRoomInfo(roomId).then((result) => {
+      console.log(result);
       if (result.status === 200) {
         const data = result.data.data;
         console.log("roomInfo : ", data);
         if (data.furniture && data.furniture.length > 0) {
           setModels([...data.furniture]);
         }
+        setRoomOwner({ userNo: data.userNo, nickName: data.userName, profileImg: data.userProfileImg });
       }
     });
     let userGender;
     if (user !== null) {
-      setRoomOwner(user.userNo);
       userGender = user.gender;
     } else {
       userGender = "female";
@@ -58,9 +59,9 @@ function SingsongRoom({ authenticated, user, logout }) {
           </div>
           <div className="vr" style={{ padding: "0px" }} />
           <div className="col-3" style={{ marginLeft: "20px" }}>
-            {authenticated ? <RoomProfile user={user} /> : <LoginBox />}
+            {roomOwner === null ? null : <RoomProfile user={roomOwner} />}
             <div className="d-grid" style={{ marginLeft: "20px", marginTop: "10px" }}>
-              {user === null ? null : user.userNo === roomOwner ? (
+              {user === null && roomOwner === null ? null : user.userNo === roomOwner.userNo ? (
                 <>
                   <Button variant="outline-secondary" size="lg">
                     <Link to={`/room/${roomId}/edit`} style={{ textDecoration: "none", color: "black" }}>

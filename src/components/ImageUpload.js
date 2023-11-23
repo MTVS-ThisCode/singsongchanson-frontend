@@ -10,7 +10,7 @@ const ImageUpload = ({ setImage }) => {
     console.log({ file });
   }
 
-  return <ImageUploader style={{ height: 200, width: 420 }} onFileAdded={(img) => getImageFileObject(img)} onFileRemoved={(img) => runAfterImageDelete(img)} />;
+  return <ImageUploader style={{ height: 400, width: 400 }} onFileAdded={(img) => getImageFileObject(img)} onFileRemoved={(img) => runAfterImageDelete(img)} />;
 };
 
 export default ImageUpload;

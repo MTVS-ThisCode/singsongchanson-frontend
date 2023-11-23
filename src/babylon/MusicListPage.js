@@ -10,15 +10,19 @@ class MusicListPage {
     //advancedTexture.addControl(panel);
     guiManager.addControl(this.panel);
     this.panel.linkToTransformNode(anchor);
-    this.panel.scaling = new Vector3(30, 30, 1);
-    this.panel.position.z = furniturePosition.z;
-    this.panel.position.x = furniturePosition.x;
-    this.panel.position.y = furniturePosition.y + 200;
+    //this.panel.scaling = new Vector3(50, 50, 10);
+    this.panel.columns = 5;
+    this.panel.margin = 10;
+    this.panel.position.z = 340;
+    this.panel.position.x = 0;
+    this.panel.position.y = 200;
     this.panel.blockLayout = true;
     //panel.node.rotation.y = Math.PI;
+    //this.panel.node.rotation.y = Math.PI;
     musicList.forEach((music) => {
-      const musicButton = new MusicButton(music.musicUrl, musicList.indexOf(music), scene, this.panel);
-      this.panel.addControl(musicButton.musicPlayButton);
+      const musicButton = new MusicButton(music.musicUrl, music.albumImgUrl, musicList.indexOf(music) + 1, scene, this.panel, guiManager);
+      //this.panel.addControl(musicButton.musicPlayButton);
+      // musicButton.musicPlayButton.linkToTransformNode(anchor);
       musicButton.musicPlayButton.isVisible = false;
     });
     this.panel.blockLayout = false;

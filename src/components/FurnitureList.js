@@ -30,7 +30,7 @@ function FurnitureList({ allModels, setModels, models }) {
             <ListGroup.Item as={"li"} key={allModels.indexOf(model)} action style={{ textAlign: "center" }}>
               <Image src={model.thumbnail} rounded style={{ height: "100px", width: "100px" }} />
               <h6>{model.name.split(".")[0]}</h6>
-              <p>Documentation and examples for opting images into responsive behavior (so they never become wider than their parent) and add lightweight styles to them—all via classes.</p>
+              <p>{model.description}</p>
               <div>
                 {models.filter((m) => m.name === model.name)[0] ? (
                   <Button

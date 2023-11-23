@@ -31,10 +31,9 @@ function Composition({ authenticated, user, logout }) {
             </>
           ) : (
             <>
-              <div className="col-4">
+              <div className="col-8">
                 <CompositionForm setPost={setPost} setResults={setResults} />
               </div>
-              <div className="col-4"></div>
             </>
           )}
           <div className="col-2">{authenticated ? <UserBox user={user} logout={logout}></UserBox> : <LoginBox />}</div>
