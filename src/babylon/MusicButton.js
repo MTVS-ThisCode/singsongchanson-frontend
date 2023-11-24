@@ -13,12 +13,13 @@ class MusicButton {
     this.musicPlayButton.scaling.x = 120;
     this.musicPlayButton.scaling.y = 120;
     this.musicPlayButton.scaling.z = 50;
-    this.musicPlayButton.imageUrl = imageUrl;
+
     const playText = new TextBlock();
     playText.text = `music #${name}`;
     playText.color = "white";
     playText.fontSize = 45;
     this.musicPlayButton.content = playText;
+    //this.musicPlayButton.imageUrl = imageUrl;
     //this.musicPlayButton.text = `music #${name}`;
     //this.musicPlayButton.isVisible = true;
 
@@ -37,7 +38,6 @@ class MusicButton {
     let timestamp;
 
     this.musicPlayButton.onPointerClickObservable.add(() => {
-      console.log("clicked : ", clicked);
       if (clicked) {
         music = new Sound("", url, scene, null, { autoplay: true, loop: true });
         console.log("play music");

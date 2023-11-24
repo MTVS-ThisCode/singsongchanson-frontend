@@ -31,13 +31,15 @@ function RoomList({ authenticated, user, logout }) {
       <Container style={{ marginTop: "20px" }}>
         <h1>SINGSONGROOM List</h1>
         <Row>
-          <div className="col-8" style={{ display: "flex", justifyContent: "center" }}>
+          <div className="col-8" style={{}}>
             {roomList.map((room) => (
               <Card style={{ width: 240, float: "left", margin: 10 }} key={roomList.indexOf(room)}>
                 <Card.Img variant="top" src={room.thumbnail} />
                 <Card.Body>
                   <Image className={commentStyle.profileImage} src={room.userProfileImg} alt="profileImage" style={{ float: "left" }}></Image>
-                  <Card.Title style={{ marginLeft: 60, marginTop: 15 }}>{room.userName}님의 싱송룸</Card.Title>
+                  <Card.Title style={{ marginTop: 15 }}>
+                    <b>{room.userName}님의 싱송룸</b>
+                  </Card.Title>
                 </Card.Body>
                 <Link to={`/room/${room.roomId}`} style={{ textDecoration: "none", color: "black" }}>
                   <div style={{ textAlign: "center", marginBottom: 5 }}>

@@ -7,7 +7,6 @@ import "@babylonjs/core/Materials/standardMaterial";
 import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
 import SceneInitializer from "../babylon/SceneInitializer";
 
-import musicListJSON from "../data/musicList.json";
 import { Button } from "react-bootstrap";
 import { BiFullscreen } from "react-icons/bi";
 
@@ -63,7 +62,7 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
         await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
       });
 
-      setEngine(sceneInitializer.scene.getEngine());
+      setEngine(sceneInitializer.engine);
 
       sceneInitializer.engine.runRenderLoop(() => {
         if (typeof onRender === "function") onRender(sceneInitializer.scene);
@@ -86,7 +85,7 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
         }
       };
     }
-  }, [sceneOptions, onRender, user, avatar, models]);
+  }, [sceneOptions, onRender, user, avatar, models, musicList, isEdit]);
 
   // set up basic engine and scene
   useEffect(() => {

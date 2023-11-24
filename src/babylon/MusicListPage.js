@@ -1,5 +1,4 @@
-import { AdvancedDynamicTexture, Rectangle, StackPanel, Button, GUI3DManager, PlanePanel } from "@babylonjs/gui";
-import { MeshBuilder, Vector3 } from "@babylonjs/core";
+import { PlanePanel } from "@babylonjs/gui";
 
 import MusicButton from "./MusicButton";
 
