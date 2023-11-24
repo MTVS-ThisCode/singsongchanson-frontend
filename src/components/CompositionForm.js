@@ -16,6 +16,7 @@ function CompositionForm({ setPost, setResults }) {
   const [genre, setGenre] = useState(null);
   const [length, setLength] = useState(null);
   const [prompt, setPrompt] = useState(null);
+  const [title, setTitle] = useState(null);
   const [instrumentList, setInstrumentList] = useState([]);
 
   const handleScaleChange = (e) => {
@@ -30,6 +31,10 @@ function CompositionForm({ setPost, setResults }) {
 
   const handlePromptChange = (e) => {
     setPrompt(e.target.value);
+  };
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
 
   const handleInstrumentChange = (e) => {
@@ -53,6 +58,7 @@ function CompositionForm({ setPost, setResults }) {
     formData.append("scale", scale);
     formData.append("instrument", instrumentList);
     formData.append("genre", genre);
+    formData.append("title", title);
 
     const data = Object.fromEntries(formData);
     console.log("data", data);
@@ -94,6 +100,12 @@ function CompositionForm({ setPost, setResults }) {
 
   return (
     <Row>
+      <Form.Group className="mb-3" controlId="formContent" style={{ marginTop: "30px" }} onChange={handleTitleChange}>
+        <Form.Label>
+          <b>TITLE</b>
+        </Form.Label>
+        <Form.Control as="input" rows={2} />
+      </Form.Group>
       <div className="col-6">
         <Form.Label>
           <b>TEXT</b>

@@ -55,12 +55,13 @@ class SceneInitializer {
     } else {
       this.engine = new Engine(canvas, true);
     }
+    this.engine.enableOfflineSupport = true;
+    this.engine.compatibilityMode = false;
+    this.scene = new Scene(this.engine);
     //this.engine = new Engine(canvas, true);
   }
 
   create(sceneOption, canvas) {
-    this.engine.enableOfflineSupport = false;
-    this.scene = new Scene(this.engine);
     if (this.scene.isReady()) {
       this.guiManager = new GUI3DManager(this.scene);
       this.anchor = new TransformNode("");

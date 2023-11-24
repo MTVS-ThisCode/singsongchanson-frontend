@@ -14,13 +14,15 @@ import avatarJSON from "../data/avatar.json";
 import modelJSON from "../data/furniture.json";
 
 import { getRoomInfo } from "../apis/room";
+import { getMymusic } from "../apis/song";
 
 function SingsongRoom({ authenticated, user, logout }) {
   let { roomId } = useParams();
   const navigate = useNavigate();
   const [roomOwner, setRoomOwner] = useState({ userNo: null, nickName: null, profileImg: null });
 
-  const [models, setModels] = useState([]);
+  const [models, setModels] = useState(null);
+  const [musicList, setMusicList] = useState(null);
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
@@ -28,20 +30,19 @@ function SingsongRoom({ authenticated, user, logout }) {
       console.log(result);
       if (result.status === 200) {
         const data = result.data.data;
-        console.log("roomInfo : ", data);
         if (data.furniture && data.furniture.length > 0) {
           setModels([...data.furniture]);
         }
+        setAvatar(avatarJSON[user.gender]);
         setRoomOwner({ userNo: data.userNo, nickName: data.userName, profileImg: data.userProfileImg });
+        getMymusic(data.userNo).then((result) => {
+          if (result.status === 200) {
+            const data = result.data.data;
+            setMusicList([...data]);
+          }
+        });
       }
     });
-    let userGender;
-    if (user !== null) {
-      userGender = user.gender;
-    } else {
-      userGender = "female";
-    }
-    setAvatar(avatarJSON[userGender]);
   }, []);
 
   return (
@@ -50,9 +51,7 @@ function SingsongRoom({ authenticated, user, logout }) {
         <h1>
           <img src="/img/room.png" alt="icon" style={{ width: "40px", height: "40px" }} /> <b>SINGSONGROOM</b>
         </h1>
-        <Row>
-          <SceneComponent antialias id="my-canvas" user={user} isEdit={false} models={models} avatar={avatar} />
-        </Row>
+        <Row>{musicList === null ? null : <SceneComponent antialias id="my-canvas" user={user} isEdit={false} models={models} avatar={avatar} musicList={musicList} />}</Row>
         <Row style={{ marginTop: "20px" }}>
           <div className="col-8">
             <CommentList user={user} roomId={roomId} />{" "}

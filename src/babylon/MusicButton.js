@@ -5,21 +5,23 @@ import axios from "axios";
 
 class MusicButton {
   constructor(url, imageUrl, name, scene, panel, guiManager) {
+    console.log(imageUrl);
     let music;
     // const musicPlayButton = new HolographicButton("Music Button");
     this.musicPlayButton = new HolographicButton("Music Button");
     panel.addControl(this.musicPlayButton);
+
     //guiManager.addControl(this.musicPlayButton);
     this.musicPlayButton.scaling.x = 120;
     this.musicPlayButton.scaling.y = 120;
     this.musicPlayButton.scaling.z = 50;
 
+    // this.musicPlayButton.imageUrl = imageUrl;
     const playText = new TextBlock();
     playText.text = `music #${name}`;
     playText.color = "white";
     playText.fontSize = 45;
     this.musicPlayButton.content = playText;
-    //this.musicPlayButton.imageUrl = imageUrl;
     //this.musicPlayButton.text = `music #${name}`;
     //this.musicPlayButton.isVisible = true;
 

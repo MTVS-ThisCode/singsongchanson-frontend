@@ -10,7 +10,7 @@ class MusicListPage {
     guiManager.addControl(this.panel);
     this.panel.linkToTransformNode(anchor);
     //this.panel.scaling = new Vector3(50, 50, 10);
-    this.panel.columns = 5;
+    this.panel.columns = 6;
     this.panel.margin = 10;
     this.panel.position.z = 340;
     this.panel.position.x = 0;

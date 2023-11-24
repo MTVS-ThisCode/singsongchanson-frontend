@@ -12,13 +12,14 @@ import { BiFullscreen } from "react-icons/bi";
 
 import { postRoomInfo } from "../apis/room";
 import { useNavigate } from "react-router-dom";
-import { getMymusic } from "../apis/song";
 
-function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOptions, user, isEdit, models, avatar, roomId, ...rest }) {
+function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOptions, user, isEdit, models, avatar, roomId, musicList, ...rest }) {
   const reactCanvas = useRef(null);
-  const [musicList, setMusicList] = useState([]);
   const [engine, setEngine] = useState(null);
   const navigate = useNavigate();
+
+  console.log("musicList : ", musicList);
+  console.log("models : ", models);
 
   let box;
 
@@ -40,57 +41,49 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
   // useEffect(() => {
   //   setMusicList([...musicListJSON]);
   // }, []);
-
+  // set up basic engine and scene
+  const editDedency = [models];
+  const nonEditDedency = [];
+  const dependency = isEdit ? editDedency : nonEditDedency;
   useEffect(() => {
-    getMymusic(user.userNo).then((result) => {
-      if (result.status === 200) {
-        const data = result.data.data;
-        setMusicList([...data]);
-      }
-    });
-  }, []);
+    async function setScene() {
+      if (models) {
+        const { current: canvas } = reactCanvas;
+        const sceneInitializer = new SceneInitializer();
+        document.fullscreenEnabled = true;
+        await sceneInitializer.setEngine(document);
+        sceneInitializer.scene.executeWhenReady(async () => {
+          console.log("executeWhenReady");
+          sceneInitializer.create(sceneOptions, canvas);
+          sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
+        });
 
-  const setScene = useCallback(async () => {
-    if (models) {
-      const { current: canvas } = reactCanvas;
-      const sceneInitializer = new SceneInitializer();
-      document.fullscreenEnabled = true;
-      await sceneInitializer.setEngine(document);
-      sceneInitializer.create(sceneOptions, canvas);
-      sceneInitializer.scene.executeWhenReady(async () => {
-        console.log("executeWhenReady");
-        await sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
-      });
+        setEngine(sceneInitializer.engine);
 
-      setEngine(sceneInitializer.engine);
+        sceneInitializer.engine.runRenderLoop(() => {
+          if (typeof onRender === "function") onRender(sceneInitializer.scene);
+          sceneInitializer.scene.render();
+        });
 
-      sceneInitializer.engine.runRenderLoop(() => {
-        if (typeof onRender === "function") onRender(sceneInitializer.scene);
-        sceneInitializer.scene.render();
-      });
-
-      const resize = () => {
-        sceneInitializer.scene.getEngine().resize();
-      };
-
-      if (window) {
-        window.addEventListener("resize", resize);
-      }
-
-      return () => {
-        //sceneInitializer.scene.getEngine().dispose();
+        const resize = () => {
+          sceneInitializer.scene.getEngine().resize();
+        };
 
         if (window) {
-          window.removeEventListener("resize", resize);
+          window.addEventListener("resize", resize);
         }
-      };
-    }
-  }, [sceneOptions, onRender, user, avatar, models, musicList, isEdit]);
 
-  // set up basic engine and scene
-  useEffect(() => {
+        return () => {
+          //sceneInitializer.scene.getEngine().dispose();
+
+          if (window) {
+            window.removeEventListener("resize", resize);
+          }
+        };
+      }
+    }
     setScene();
-  }, [setScene, onRender]);
+  }, dependency);
 
   const fullscreen = () => {
     engine.switchFullscreen();

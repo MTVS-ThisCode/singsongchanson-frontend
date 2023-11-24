@@ -54,3 +54,33 @@ export const getAllmusic = () => {
       return error.response;
     });
 };
+
+export const postStreaming = (musicNo) => {
+  return axios
+    .put(
+      `${API_BASE_URL}/api/v1/musics/count?musicNo=${musicNo}`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        },
+      }
+    )
+    .catch((error) => {
+      return error.response;
+    });
+};
+
+export const getRanking = () => {
+  return axios
+    .get(`${API_BASE_URL}/api/v1/musics/ranking`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+      },
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
