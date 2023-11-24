@@ -81,6 +81,7 @@ function CompositionForm({ setPost, setResults }) {
     const formData = new FormData();
 
     formData.append("imageFile", image);
+    formData.append("title", title);
 
     const data = Object.fromEntries(formData);
     console.log("data", data);
