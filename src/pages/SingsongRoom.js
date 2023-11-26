@@ -30,9 +30,7 @@ function SingsongRoom({ authenticated, user, logout }) {
       console.log(result);
       if (result.status === 200) {
         const data = result.data.data;
-        if (data.furniture && data.furniture.length > 0) {
-          setModels([...data.furniture]);
-        }
+        setModels([...data.furniture]);
         setAvatar(avatarJSON[user.gender]);
         setRoomOwner({ userNo: data.userNo, nickName: data.userName, profileImg: data.userProfileImg });
         getMymusic(data.userNo).then((result) => {
@@ -51,7 +49,9 @@ function SingsongRoom({ authenticated, user, logout }) {
         <h1>
           <img src="/img/room.png" alt="icon" style={{ width: "40px", height: "40px" }} /> <b>SINGSONGROOM</b>
         </h1>
-        <Row>{musicList === null ? null : <SceneComponent antialias id="my-canvas" user={user} isEdit={false} models={models} avatar={avatar} musicList={musicList} />}</Row>
+        <Row>
+          <SceneComponent antialias id="my-canvas" user={user} isEdit={false} models={models} avatar={avatar} musicList={musicList} />
+        </Row>
         <Row style={{ marginTop: "20px" }}>
           <div className="col-8">
             <CommentList user={user} roomId={roomId} />{" "}

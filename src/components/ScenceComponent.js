@@ -43,44 +43,42 @@ function SceneComponent({ antialias, engineOptions, adaptToDeviceRatio, sceneOpt
   // }, []);
   // set up basic engine and scene
   const editDedency = [models];
-  const nonEditDedency = [];
+  const nonEditDedency = [avatar];
   const dependency = isEdit ? editDedency : nonEditDedency;
   useEffect(() => {
     async function setScene() {
-      if (models) {
-        const { current: canvas } = reactCanvas;
-        const sceneInitializer = new SceneInitializer();
-        document.fullscreenEnabled = true;
-        await sceneInitializer.setEngine(document);
-        sceneInitializer.scene.executeWhenReady(async () => {
-          console.log("executeWhenReady");
-          sceneInitializer.create(sceneOptions, canvas);
-          sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
-        });
+      const { current: canvas } = reactCanvas;
+      const sceneInitializer = new SceneInitializer();
+      document.fullscreenEnabled = true;
+      await sceneInitializer.setEngine(document);
+      sceneInitializer.scene.executeWhenReady(async () => {
+        console.log("executeWhenReady");
+        sceneInitializer.create(sceneOptions, canvas);
+        sceneInitializer.onReady(models, musicList, avatar, user, isEdit);
+      });
 
-        setEngine(sceneInitializer.engine);
+      setEngine(sceneInitializer.engine);
 
-        sceneInitializer.engine.runRenderLoop(() => {
-          if (typeof onRender === "function") onRender(sceneInitializer.scene);
-          sceneInitializer.scene.render();
-        });
+      sceneInitializer.engine.runRenderLoop(() => {
+        if (typeof onRender === "function") onRender(sceneInitializer.scene);
+        sceneInitializer.scene.render();
+      });
 
-        const resize = () => {
-          sceneInitializer.scene.getEngine().resize();
-        };
+      const resize = () => {
+        sceneInitializer.scene.getEngine().resize();
+      };
+
+      if (window) {
+        window.addEventListener("resize", resize);
+      }
+
+      return () => {
+        sceneInitializer.scene.getEngine().dispose();
 
         if (window) {
-          window.addEventListener("resize", resize);
+          window.removeEventListener("resize", resize);
         }
-
-        return () => {
-          //sceneInitializer.scene.getEngine().dispose();
-
-          if (window) {
-            window.removeEventListener("resize", resize);
-          }
-        };
-      }
+      };
     }
     setScene();
   }, dependency);

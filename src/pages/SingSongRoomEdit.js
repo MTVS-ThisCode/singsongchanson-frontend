@@ -58,7 +58,9 @@ function SingsongRoomEdit({ authenticated, user, logout }) {
           <img src="/img/room.png" alt="icon" style={{ width: "40px", height: "40px" }} /> <b>SINGSONGROOM Edit</b>
         </h1>
         <Row>
-          <div className="col-8">{models === null ? null : <SceneComponent antialias id="my-canvas" user={user} isEdit={true} models={JSON.parse(localStorage.getItem("room"))} avatar={avatar} roomId={roomId} />}</div>
+          <div className="col-8">
+            <SceneComponent antialias id="my-canvas" user={user} isEdit={true} models={JSON.parse(localStorage.getItem("room"))} avatar={avatar} roomId={roomId} />
+          </div>
           <div className="col-4">
             <FurnitureList allModels={allModels} setModels={setModels} models={JSON.parse(localStorage.getItem("room"))} />
           </div>

@@ -32,7 +32,7 @@ function MyMusic({ authenticated, user, logout }) {
     <>
       <Container style={{ marginTop: "20px" }}>
         <h1>
-          <img src="/img/new-music.png" alt="icon" style={{ width: "40px", height: "40px" }} />
+          <img src="/img/my-music.png" alt="icon" style={{ width: "40px", height: "40px" }} />
           <b style={{ marginLeft: "10px" }}>MY MUSIC</b>
         </h1>
         <Row>
