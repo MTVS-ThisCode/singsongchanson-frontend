@@ -31,7 +31,10 @@ function MyMusic({ authenticated, user, logout }) {
   return (
     <>
       <Container style={{ marginTop: "20px" }}>
-        <h1>MY MUSIC</h1>
+        <h1>
+          <img src="/img/new-music.png" alt="icon" style={{ width: "40px", height: "40px" }} />
+          <b style={{ marginLeft: "10px" }}>MY MUSIC</b>
+        </h1>
         <Row>
           <b>내가 만든 노래 {musicList.length}개</b>
           <div className="col-8">

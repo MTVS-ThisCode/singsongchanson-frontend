@@ -19,7 +19,7 @@ function Composition({ authenticated, user, logout }) {
     <>
       <Container style={{ marginTop: "20px" }}>
         <h1>
-          <img src="/img/icon-music.png" alt="icon" style={{ width: "40px", height: "40px" }} /> <b>COMPOSITION</b>
+          <img src="/img/icon-music.png" alt="icon" style={{ width: "40px", height: "40px" }} /> <b style={{ marginLeft: "10px" }}>COMPOSITION</b>
         </h1>
         <Row>
           {post ? (

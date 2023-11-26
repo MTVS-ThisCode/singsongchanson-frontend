@@ -29,13 +29,13 @@ function UserBox({ user, logout }) {
       <div style={{ marginLeft: "12px", marginTop: "-25px" }}>
         <Row className={loginStyle.signInBtn}>
           <Col className={loginStyle.box}>
-            <Link to="/mypage" style={{ textDecoration: "none", color: "black" }}>
+            <Link to={`/room/${user.roomId}`} style={{ textDecoration: "none", color: "black" }}>
               MY 싱송룸
             </Link>
           </Col>
           <Col className={loginStyle.box}>
-            <Link to="/composition" style={{ textDecoration: "none", color: "black" }}>
-              AI 노래 작곡
+            <Link to={`/music/${user.userNo}`} style={{ textDecoration: "none", color: "black" }}>
+              MY 뮤직
             </Link>
           </Col>
         </Row>

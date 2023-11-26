@@ -29,7 +29,10 @@ function RoomList({ authenticated, user, logout }) {
   return (
     <>
       <Container style={{ marginTop: "20px" }}>
-        <h1>SINGSONGROOM List</h1>
+        <h1>
+          <img src="/img/room.png" alt="icon" style={{ width: "40px", height: "40px" }} />
+          <b style={{ marginLeft: "10px" }}>SINGSONGROOM LIST</b>
+        </h1>
         <Row>
           <div className="col-8" style={{}}>
             {roomList.map((room) => (

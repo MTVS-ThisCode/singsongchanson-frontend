@@ -26,7 +26,10 @@ function Main({ authenticated, user, logout }) {
   return (
     <>
       <Container>
-        <h1>Main</h1>
+        <h1>
+          <img src="/img/new-music.png" alt="icon" style={{ width: "40px", height: "40px" }} />
+          <b style={{ marginLeft: "10px" }}>NEW MUSIC</b>
+        </h1>
         <Row>
           <div className="col-8">
             <MusicList musicList={musicList} setMusicList={setMusicList} />
